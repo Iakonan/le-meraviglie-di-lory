@@ -8,4 +8,5 @@ Route::post('/orders', [OrderController::class, 'store']); // Creare un nuovo or
 Route::get('/orders/{id}', [OrderController::class, 'show']); // Visualizzare un ordine specifico
 Route::put('/orders/{id}', [OrderController::class, 'update']); // Aggiornare un ordine
 Route::delete('/orders/{id}', [OrderController::class, 'destroy']); // Eliminare un ordine
+Route::get('/orders/{id}/pdf', [OrderController::class, 'generatePdf']); // Genera pdf con ordine
 

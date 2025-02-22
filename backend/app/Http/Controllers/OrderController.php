@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
+
 
 class OrderController extends Controller
 {
@@ -64,4 +67,30 @@ class OrderController extends Controller
         $order->delete();
         return response()->json(['message' => 'Ordine eliminato con successo']);
     }
+
+    // GENERARE IL PDF DELL'ORDINE
+    public function generatePdf($id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['message' => 'Ordine non trovato'], 404);
+        }
+
+        // Genera il PDF dalla vista Blade
+        $pdf = Pdf::loadView('pdf.order', compact('order'));
+
+        // Nome del file PDF
+        $fileName = "ordine_" . $order->id . ".pdf";
+
+        // Salviamo il PDF nello storage
+        Storage::disk('public')->put("pdfs/$fileName", $pdf->output());
+
+        // Restituiamo un link per il download
+        return response()->json([
+            'message' => 'PDF generato con successo!',
+            'pdf_url' => asset("storage/pdfs/$fileName")
+        ]);
+    }
+
 }
