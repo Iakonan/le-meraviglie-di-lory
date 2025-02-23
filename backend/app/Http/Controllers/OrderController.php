@@ -105,5 +105,73 @@ class OrderController extends Controller
         ]);
     }
 
+    public function listOrders(Request $request)
+    {
+        $query = Order::query();
+
+        // Filtro per nome cliente (se presente)
+        if ($request->has('customer_name')) {
+            $query->where('customer_name', 'LIKE', '%' . $request->customer_name . '%');
+        }
+
+        // Filtro per stato ordine (se presente)
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Ordini paginati (10 per pagina)
+        $orders = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        return response()->json($orders);
+    }
+
+    public function getOrder($id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['message' => 'Ordine non trovato'], 404);
+        }
+
+        return response()->json($order);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['message' => 'Ordine non trovato'], 404);
+        }
+
+        // Validazione del nuovo stato
+        $request->validate([
+            'status' => 'required|in:pending,confirmed,delivered'
+        ]);
+
+        $order->status = $request->status;
+        $order->save();
+
+        return response()->json([
+            'message' => 'Stato ordine aggiornato con successo!',
+            'order' => $order
+        ]);
+    }
+
+    public function deleteOrder($id)
+    {
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json(['message' => 'Ordine non trovato'], 404);
+        }
+
+        $order->delete();
+
+        return response()->json(['message' => 'Ordine eliminato con successo!']);
+    }
+
+
+
 
 }

@@ -9,4 +9,8 @@ Route::get('/orders/{id}', [OrderController::class, 'show']); // Visualizzare un
 Route::put('/orders/{id}', [OrderController::class, 'update']); // Aggiornare un ordine
 Route::delete('/orders/{id}', [OrderController::class, 'destroy']); // Eliminare un ordine
 Route::get('/orders/{id}/pdf', [OrderController::class, 'generatePdf']); // Genera pdf con ordine
+Route::get('/orders/{id}', [OrderController::class, 'getOrder']); // Filtra ordini
+Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus']); // Aggiorna lo stato ordine
+Route::delete('/orders/{id}', [OrderController::class, 'deleteOrder']); // Elimina ordine
+
 
