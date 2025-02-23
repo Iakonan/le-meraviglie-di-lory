@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Order;
+use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderMail;
+
 
 
 class OrderController extends Controller
@@ -77,20 +81,29 @@ class OrderController extends Controller
             return response()->json(['message' => 'Ordine non trovato'], 404);
         }
 
+        // Puliamo il nome del cliente per evitare caratteri non validi nei file
+        $cleanCustomerName = preg_replace('/[^A-Za-z0-9_]/', '_', $order->customer_name);
+
+        // Creiamo il nome del file con ID e nome del cliente
+        $fileName = "ordine_" . $order->id . "_" . $cleanCustomerName . ".pdf";
+
         // Genera il PDF dalla vista Blade
         $pdf = Pdf::loadView('pdf.order', compact('order'));
-
-        // Nome del file PDF
-        $fileName = "ordine_" . $order->id . ".pdf";
 
         // Salviamo il PDF nello storage
         Storage::disk('public')->put("pdfs/$fileName", $pdf->output());
 
-        // Restituiamo un link per il download
+        // Percorso completo del PDF
+        $pdfPath = storage_path("app/public/pdfs/$fileName");
+
+        // Invia l'email con il PDF allegato
+        Mail::to("destinatario@example.com")->send(new OrderMail($order, $pdfPath));
+
         return response()->json([
-            'message' => 'PDF generato con successo!',
+            'message' => 'PDF generato e inviato con successo!',
             'pdf_url' => asset("storage/pdfs/$fileName")
         ]);
     }
+
 
 }

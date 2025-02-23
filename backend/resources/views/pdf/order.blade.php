@@ -37,7 +37,5 @@
             <td>{{ ucfirst($order->status) }}</td>
         </tr>
     </table>
-
-    <p><em>Grazie per aver ordinato da noi!</em></p>
 </body>
 </html>
