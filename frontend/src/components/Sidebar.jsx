@@ -20,7 +20,7 @@ export default function Sidebar() {
       {/* Bottone hamburger visibile SOLO su mobile */}
       {!isDesktop && (
         <button 
-          className="md:hidden fixed top-4 left-4 z-50 text-bgcontrast-500 p-2 rounded-md shadow-lg hover:bg-secondary transition"
+          className="md:hidden fixed top-4 left-4 z-50 text-bgcontrast-500 p-2 rounded-md shadow-lg hover:bg-secondary-500 transition"
           onClick={() => setIsOpen(true)}
         >
           <FaBars size={24} />
@@ -41,27 +41,24 @@ export default function Sidebar() {
         transition-transform duration-300 ease-in-out 
         md:relative md:w-full md:h-auto md:flex md:items-center md:justify-center md:px-8`}>
 
-        {/* Header con titolo e bottone di chiusura SOLO su mobile */}
+        {/* Bottone di chiusura SOLO su mobile (in alto a destra) */}
         {!isDesktop && (
-          <div className="flex justify-between items-center md:hidden">
-            <h2 className="text-lg font-semibold text-text-500">Menu</h2>
-            <button 
-              className="text-text-500 hover:text-gray-700"
-              onClick={() => setIsOpen(false)}
-            >
-              <FaTimes size={24} />
-            </button>
-          </div>
+          <button 
+            className="absolute top-6 left-6 text-text-500 hover:text-gray-700"
+            onClick={() => setIsOpen(false)}
+          >
+            <FaTimes size={24} />
+          </button>
         )}
 
         {/* Link del menu */}
-        <nav className="mt-4 md:mt-0 md:flex md:space-x-10 w-full text-center">
+        <nav className="mt-20 md:mt-0 md:flex md:space-x-10 w-full text-center">
           <ul className="space-y-4 md:space-y-0 md:flex md:space-x-10 text-text-500 w-full justify-center">
-            <li className="p-3 hover:bg-gray-100 md:hover:bg-transparent cursor-pointer">Home</li>
-            <li className="p-3 hover:bg-gray-100 md:hover:bg-transparent cursor-pointer">Chi Sono</li>
-            <li className="p-3 hover:bg-gray-100 md:hover:bg-transparent cursor-pointer">Galleria</li>
-            <li className="p-3 hover:bg-gray-100 md:hover:bg-transparent cursor-pointer">Ordina</li>
-            <li className="p-3 hover:bg-gray-100 md:hover:bg-transparent cursor-pointer">Recensioni</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Home</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Chi Sono</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Galleria</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Ordina</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Recensioni</li>
           </ul>
         </nav>
       </div>

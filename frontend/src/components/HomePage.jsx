@@ -2,6 +2,7 @@ import Carousel from './Carousel';
 import Footer from './Footer';
 import Reviews from './Reviews';
 import Sidebar from './Sidebar';
+import Newsletter from './Newsletter';
 
 export default function HomePage() {
     return (
@@ -59,6 +60,8 @@ export default function HomePage() {
             <h2 className="text-2xl font-semibold text-text-500 mb-4">Recensioni dei Clienti</h2>
                 <Reviews />
         </section>
+
+        <Newsletter />
         
         <Footer />
       </div>
