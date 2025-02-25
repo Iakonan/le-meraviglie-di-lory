@@ -36,9 +36,9 @@ export default function Reviews() {
       >
         {reviews.map((review) => (
           <SwiperSlide key={review.id}>
-            <div className="p-4 bg-rose-50 rounded-lg shadow-md text-center">
-              <p className="text-gray-700">"{review.text}"</p>
-              <p className="mt-2 text-teal-500 font-semibold">- {review.author}</p>
+            <div className="p-4 bg-bgcontrast-500 rounded-lg shadow-md text-center">
+              <p className="text-text-500">"{review.text}"</p>
+              <p className="mt-2 text-secondary-500 font-semibold">- {review.author}</p>
             </div>
           </SwiperSlide>
         ))}
