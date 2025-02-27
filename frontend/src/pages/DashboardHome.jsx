@@ -3,7 +3,7 @@ import DashboardLayout from "../components/DashboardLayout";
 export default function DashboardHome() {
   return (
     <DashboardLayout>
-      <h1 className="text-2xl font-bold text-primary-500 mb-6">📊 Riepilogo Ordini</h1>
+      <h1 className="text-2xl font-bold mb-6">📊 Riepilogo Ordini</h1>
       
       {/* Sezione statistiche rapide */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

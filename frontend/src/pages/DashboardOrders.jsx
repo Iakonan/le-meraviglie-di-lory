@@ -1,26 +1,68 @@
 import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
+import ConfirmModal from "../components/ConfirmModal"; // Importiamo la modale
 
 export default function DashboardOrders() {
   const [orders, setOrders] = useState([]);
+  const [customerFilter, setCustomerFilter] = useState("");
+  const [orderIdFilter, setOrderIdFilter] = useState("");
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // Simuliamo il recupero degli ordini dal backend (lo collegheremo più avanti)
     const fakeOrders = [
       { id: 1, customer: "Mario Rossi", status: "pending", price: "50.00" },
       { id: 2, customer: "Giulia Verdi", status: "confirmed", price: "80.00" },
       { id: 3, customer: "Luca Bianchi", status: "delivered", price: "120.00" },
+      { id: 4, customer: "Elena Neri", status: "pending", price: "65.00" },
     ];
     setOrders(fakeOrders);
   }, []);
+
+  // 🔍 Filtriamo gli ordini per nome cliente e ID
+  const filteredOrders = orders.filter(order =>
+    order.customer.toLowerCase().includes(customerFilter.toLowerCase()) &&
+    (orderIdFilter === "" || order.id.toString().includes(orderIdFilter))
+  );
+
+  // ✏️ Funzione per cambiare lo stato dell'ordine
+  const handleStatusChange = (id, newStatus) => {
+    setOrders(orders.map(order =>
+      order.id === id ? { ...order, status: newStatus } : order
+    ));
+  };
+
+  // 🗑️ Funzione per confermare l'eliminazione di un ordine
+  const confirmDelete = (id) => {
+    setOrders(orders.filter(order => order.id !== id));
+    setIsModalOpen(false);
+  };
 
   return (
     <DashboardLayout>
       <h1 className="text-2xl font-bold mb-6">📦 Gestione Ordini</h1>
 
-      {/* Visualizzazione tabella su desktop */}
-      <div className="hidden md:block">
-        <table className="w-full bg-white shadow-md rounded-lg overflow-hidden">
+      {/* Sezione Filtri */}
+      <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6 w-full text-lg">
+        <input
+          type="text"
+          placeholder="Filtra per nome cliente"
+          className="px-4 py-2 border border-gray-300 rounded-md w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-secondary-500 bg-white"
+          value={customerFilter}
+          onChange={(e) => setCustomerFilter(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Filtra per ID ordine"
+          className="px-4 py-2 border border-gray-300 rounded-md w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-secondary-500 bg-white"
+          value={orderIdFilter}
+          onChange={(e) => setOrderIdFilter(e.target.value)}
+        />
+      </div>
+
+      {/* Sezione Tabella Desktop */}
+      <div className="hidden md:block w-full overflow-x-auto">
+        <table className="w-full bg-white shadow-md rounded-lg">
           <thead className="bg-primary-500 text-white">
             <tr>
               <th className="py-3 px-4 text-left">ID</th>
@@ -31,54 +73,87 @@ export default function DashboardOrders() {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
-              <tr key={order.id} className="border-b hover:bg-gray-100">
-                <td className="py-3 px-4">{order.id}</td>
-                <td className="py-3 px-4">{order.customer}</td>
-                <td className="py-3 px-4 capitalize text-center">
-                  <span className={`px-2 py-1 rounded-md text-white text-sm 
-                    ${order.status === "pending" ? "bg-yellow-500" : ""}
-                    ${order.status === "confirmed" ? "bg-blue-500" : ""}
-                    ${order.status === "delivered" ? "bg-green-500" : ""}
-                  `}>
-                    {order.status}
-                  </span>
-                </td>
-                <td className="py-3 px-4">€{order.price}</td>
-                <td className="py-3 px-4">
-                  <button className="bg-gray-500 text-white px-3 py-1 rounded-md shadow hover:bg-red-600 transition">
-                     Elimina
-                  </button>
+            {filteredOrders.length > 0 ? (
+              filteredOrders.map((order) => (
+                <tr key={order.id} className="border-b hover:bg-gray-100">
+                  <td className="py-3 px-4">{order.id}</td>
+                  <td className="py-3 px-4">{order.customer}</td>
+                  <td className="py-3 px-4 capitalize text-center">
+                    <select
+                      value={order.status}
+                      onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                      className="px-2 py-1 rounded-md text-sm border"
+                    >
+                      <option value="pending">In attesa</option>
+                      <option value="confirmed">Confermato</option>
+                      <option value="delivered">Ritirato</option>
+                    </select>
+                  </td>
+                  <td className="py-3 px-4">€{order.price}</td>
+                  <td className="py-3 px-4">
+                    <button
+                      className="bg-red-500 text-white px-3 py-1 rounded-md shadow hover:bg-red-600 transition"
+                      onClick={() => {
+                        setSelectedOrderId(order.id);
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      Elimina
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="text-center py-4 text-gray-500">
+                  Nessun ordine trovato.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
 
-      {/* Visualizzazione card su mobile */}
+      {/* Sezione Card Mobile */}
       <div className="md:hidden flex flex-col gap-4">
-        {orders.map((order) => (
-          <div key={order.id} className="bg-white p-4 rounded-lg shadow-md">
-            <p className="text-lg font-semibold">Ordine #{order.id}</p>
-            <p className="text-text-500">👤 <span className="font-semibold">{order.customer}</span></p>
-            <p className="text-text-500">💰 Prezzo: <span className="font-semibold">€{order.price}</span></p>
-            <p className="text-text-500">
-              📌 Stato:{" "}
-              <span className={`px-2 py-1 rounded-md text-white text-sm 
-                ${order.status === "pending" ? "bg-yellow-500" : ""}
-                ${order.status === "confirmed" ? "bg-blue-500" : ""}
-                ${order.status === "delivered" ? "bg-green-500" : ""}
-              `}>
-                {order.status}
-              </span>
-            </p>
-            <button className="mt-3 bg-gray-500 text-white px-4 py-2 rounded-md shadow hover:bg-red-600 transition">
-              Elimina
-            </button>
-          </div>
-        ))}
+        {filteredOrders.length > 0 ? (
+          filteredOrders.map((order) => (
+            <div key={order.id} className="bg-white p-4 rounded-lg shadow-md">
+              <p className="text-lg font-semibold">Ordine #{order.id}</p>
+              <p className="text-text-500">👤 <span className="font-semibold">{order.customer}</span></p>
+              <p className="text-text-500">💰 Prezzo: <span className="font-semibold">€{order.price}</span></p>
+              <p className="text-text-500">
+                📌 Stato:{" "}
+                <select
+                  value={order.status}
+                  onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                  className="px-2 py-1 rounded-md text-sm border"
+                >
+                  <option value="pending">In attesa</option>
+                  <option value="confirmed">Confermato</option>
+                  <option value="delivered">Ritirato</option>
+                </select>
+              </p>
+              <div className="flex justify-center mt-4">
+                <button
+                  className="bg-red-500 text-white px-6 py-2 rounded-md shadow hover:bg-red-600 transition"
+                  onClick={() => {
+                    setSelectedOrderId(order.id);
+                    setIsModalOpen(true);
+                  }}
+                >
+                  Elimina
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-500">Nessun ordine trovato.</p>
+        )}
       </div>
+
+      {/* Modale di conferma eliminazione */}
+      <ConfirmModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={confirmDelete} orderId={selectedOrderId} />
     </DashboardLayout>
   );
 }
