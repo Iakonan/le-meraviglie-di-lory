@@ -14,7 +14,7 @@ export default function Newsletter() {
         <input
           type="email"
           placeholder="Email"
-          className="text-sm w-full md:w-1/4 px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-500"
+          className="text-sm w-full md:w-1/4 px-4 py-3 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -26,7 +26,7 @@ export default function Newsletter() {
       {/* Termini e Privacy */}
       <p className="text-text-500 text-xs mt-4">
         Iscrivendoti accetti i nostri termini d'uso. Per maggiori informazioni, leggi la nostra
-        <a href="/privacy-policy" target="_blank" className="text-secondary-500 ml-1 hover:underline">
+        <a href="/privacy-policy" target="_blank" className="text-white ml-1 hover:underline">
           Privacy Policy
         </a>.
       </p>
