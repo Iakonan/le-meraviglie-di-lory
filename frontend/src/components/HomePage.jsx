@@ -12,7 +12,7 @@ export default function HomePage() {
         
         <header 
             className="w-full h-[60vh] bg-cover bg-center flex items-center justify-center"
-            style={{ backgroundImage: `url('/hero.jpg')` }}
+            style={{ backgroundImage: `url('/loryheader.jpg')` }}
         >
         <img
             src="/logo.jpg"
@@ -22,7 +22,7 @@ export default function HomePage() {
         </header>
 
         <div className="px-4 py-6 text-center">
-        <p className="text-lg text-text-500">
+        <p className="text-lg text-white">
             Dolci creazioni fatte con amore e fantasia.
         </p>
         </div>
@@ -57,7 +57,7 @@ export default function HomePage() {
             </div>
         </section>
         <section className="reviews w-full px-4 py-8 text-center">
-            <h2 className="text-2xl font-semibold text-text-500 mb-4">Recensioni dei Clienti</h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">Recensioni dei Clienti</h2>
                 <Reviews />
         </section>
 
