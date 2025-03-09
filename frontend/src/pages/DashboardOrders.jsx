@@ -25,45 +25,52 @@ export default function DashboardOrders() {
     (orderIdFilter === "" || order.id.toString().includes(orderIdFilter))
   );
 
-  // ✏️ Funzione per cambiare lo stato dell'ordine
+  // ✅ Funzione per cambiare lo stato dell'ordine
   const handleStatusChange = (id, newStatus) => {
     setOrders(orders.map(order =>
       order.id === id ? { ...order, status: newStatus } : order
     ));
   };
 
-  // 🗑️ Funzione per confermare l'eliminazione di un ordine
-  const confirmDelete = (id) => {
-    setOrders(orders.filter(order => order.id !== id));
+  // ✅ Funzione per aprire il modale di conferma eliminazione
+  const openDeleteModal = (id) => {
+    setSelectedOrderId(id);
+    setIsModalOpen(true);
+  };
+
+  // ✅ Funzione per eliminare un ordine dopo la conferma
+  const confirmDelete = () => {
+    setOrders(orders.filter(order => order.id !== selectedOrderId));
     setIsModalOpen(false);
+    setSelectedOrderId(null);
   };
 
   return (
     <DashboardLayout>
-      <h1 className="text-2xl font-bold mb-6">📦 Gestione Ordini</h1>
+      <h1 className="text-3xl md:text-5xl font-bold mb-6">📦 Gestione Ordini</h1>
 
-      {/* Sezione Filtri */}
+      {/* 🛠 Sezione Filtri */}
       <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6 w-full text-lg">
         <input
           type="text"
           placeholder="Filtra per nome cliente"
-          className="px-4 py-2 border border-gray-300 rounded-md w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-secondary-500 bg-white"
+          className="text-2xl px-4 py-2 border border-gray-300 rounded-md w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-secondary-500 bg-white"
           value={customerFilter}
           onChange={(e) => setCustomerFilter(e.target.value)}
         />
         <input
           type="number"
           placeholder="Filtra per ID ordine"
-          className="px-4 py-2 border border-gray-300 rounded-md w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-secondary-500 bg-white"
+          className="text-2xl px-4 py-2 border border-gray-300 rounded-md w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-secondary-500 bg-white"
           value={orderIdFilter}
           onChange={(e) => setOrderIdFilter(e.target.value)}
         />
       </div>
 
-      {/* Sezione Tabella Desktop */}
+      {/* 🖥 Sezione Tabella Desktop */}
       <div className="hidden md:block w-full overflow-x-auto">
         <table className="w-full bg-white shadow-md rounded-lg">
-          <thead className="bg-primary-500 text-white">
+          <thead className="bg-primary-500 text-black">
             <tr>
               <th className="py-3 px-4 text-left">ID</th>
               <th className="py-3 px-4 text-left">Cliente</th>
@@ -82,7 +89,7 @@ export default function DashboardOrders() {
                     <select
                       value={order.status}
                       onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                      className="px-2 py-1 rounded-md text-sm border"
+                      className="px-2 py-1 rounded-md text-lg border"
                     >
                       <option value="pending">In attesa</option>
                       <option value="confirmed">Confermato</option>
@@ -93,10 +100,7 @@ export default function DashboardOrders() {
                   <td className="py-3 px-4">
                     <button
                       className="bg-red-500 text-white px-3 py-1 rounded-md shadow hover:bg-red-600 transition"
-                      onClick={() => {
-                        setSelectedOrderId(order.id);
-                        setIsModalOpen(true);
-                      }}
+                      onClick={() => openDeleteModal(order.id)}
                     >
                       Elimina
                     </button>
@@ -114,7 +118,7 @@ export default function DashboardOrders() {
         </table>
       </div>
 
-      {/* Sezione Card Mobile */}
+      {/* 📱 Sezione Card Mobile */}
       <div className="md:hidden flex flex-col gap-4">
         {filteredOrders.length > 0 ? (
           filteredOrders.map((order) => (
@@ -137,10 +141,7 @@ export default function DashboardOrders() {
               <div className="flex justify-center mt-4">
                 <button
                   className="bg-red-500 text-white px-6 py-2 rounded-md shadow hover:bg-red-600 transition"
-                  onClick={() => {
-                    setSelectedOrderId(order.id);
-                    setIsModalOpen(true);
-                  }}
+                  onClick={() => openDeleteModal(order.id)}
                 >
                   Elimina
                 </button>
@@ -152,8 +153,13 @@ export default function DashboardOrders() {
         )}
       </div>
 
-      {/* Modale di conferma eliminazione */}
-      <ConfirmModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={confirmDelete} orderId={selectedOrderId} />
+      {/*  Modale di conferma eliminazione */}
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={confirmDelete}
+        orderId={selectedOrderId}
+      />
     </DashboardLayout>
   );
 }

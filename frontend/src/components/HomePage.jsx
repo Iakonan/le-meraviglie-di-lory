@@ -22,42 +22,40 @@ export default function HomePage() {
         </header>
 
         <div className="px-4 py-6 text-center">
-        <p className="text-lg text-white">
+        <p className="text-4xl text-black">
             Dolci creazioni fatte con amore e fantasia.
         </p>
         </div>
 
   
-        <section className="gallery w-full px-4 py-8 text-center bg-bgcontrast-500">
-            <h2 className="text-2xl font-semibold text-text-500">Galleria Torte</h2>
+        <section className="gallery w-full px-4 py-8 text-center bg-secondary-500">
+            <h2 className="text-4xl font-semibold text-black">Galleria Torte</h2>
     
             <div className="mt-4 max-w-xl mx-auto">
                 <Carousel />
             </div>
 
-            <button className="mt-6 bg-secondary-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-text-500 transition cursor-pointer">
-                Guarda tutte le torte
+            <button className="mt-6 bg-primary-500 text-black py-2 px-4 rounded-md shadow-md hover:bg-text-500 hover:text-white transition cursor-pointer">
+                Tutte le foto
             </button>
         </section>
-
+        <br />
         <section
             className="order-section w-full min-h-[50vh] px-4 py-24 text-center bg-cover bg-center flex justify-center items-center"
-            style={{ backgroundImage: "url('/ordercake.jpg')" }}
+            style={{ backgroundImage: "url('/orderimg.jpg')" }}
         >
             <div className="bg-trasparent backdrop-blur-sm p-8 rounded-lg shadow-lg inline-block">
-                <h2 className="text-2xl font-semibold text-white mb-4">
-                    Ordina la tua torta personalizzata
-                </h2>
-                <p className="text-white mb-6">
+                
+                <p className="text-black mb-6 md:text-5xl">
                     Personalizza la tua torta come desideri e rendi speciale ogni occasione!
                 </p>
                 <button className="bg-secondary-500 text-white py-3 px-6 rounded-md shadow hover:bg-text-500 transition cursor-pointer">
-                    Ordina ora
+                    Ordina ora la tua torta
                 </button>
             </div>
         </section>
         <section className="reviews w-full px-4 py-8 text-center">
-            <h2 className="text-2xl font-semibold text-white mb-4">Recensioni dei Clienti</h2>
+            <h2 className="text-2xl font-semibold text-black md:text-4xl mb-4">Recensioni dei Clienti</h2>
                 <Reviews />
         </section>
 

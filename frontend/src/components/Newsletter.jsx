@@ -4,8 +4,8 @@ export default function Newsletter() {
   const [email, setEmail] = useState("");
 
   return (
-    <section className="w-full px-4 py-12 bg-bgcontrast-500 text-center">
-      <h2 className="text-xl font-semibold text-text-500">
+    <section className="w-full px-4 py-12 bg-secondary-500 text-center">
+      <h2 className="text-xl font-semibold text-black md:text-3xl">
         Unisciti alla community!
       </h2>
 
@@ -14,17 +14,17 @@ export default function Newsletter() {
         <input
           type="email"
           placeholder="Email"
-          className="text-sm w-full md:w-1/4 px-4 py-3 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+          className="text-lg md:text-2xl w-full md:w-1/4 px-4 py-3 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button className="bg-secondary-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-text-500 transition">
+        <button className="bg-primary-500 text-black px-6 py-3 rounded-md shadow-md hover:bg-text-500 hover:text-white transition">
           Iscriviti
         </button>
       </div>
 
       {/* Termini e Privacy */}
-      <p className="text-text-500 text-xs mt-4">
+      <p className="text-black text-lg  mt-4">
         Iscrivendoti accetti i nostri termini d'uso. Per maggiori informazioni, leggi la nostra
         <a href="/privacy-policy" target="_blank" className="text-white ml-1 hover:underline">
           Privacy Policy
