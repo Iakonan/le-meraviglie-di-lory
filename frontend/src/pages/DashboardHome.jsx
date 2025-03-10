@@ -26,6 +26,7 @@ export default function DashboardHome() {
         <h3 className="text-2-xl font-semibold text-black">📢 Prossimamente</h3>
         <p className="text-black">Aggiungeremo nuove statistiche e funzionalità avanzate!</p>
       </div>
+      
     </DashboardLayout>
   );
 }

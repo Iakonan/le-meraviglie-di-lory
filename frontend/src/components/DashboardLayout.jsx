@@ -26,7 +26,7 @@ export default function DashboardLayout({ children }) {
               <Link to="/dashboard/orders" className="block p-2 rounded-lg hover:bg-secondary-500 md:text-4xl">📋 Gestione</Link>
             </li>
             <li>
-              <Link to="/dashboard/gallery" className="block p-2 rounded-lg hover:bg-secondary-500 md:text-4xl">📸 Galleria</Link>
+              <Link to="/dashboard/gallery" className="block p-2 rounded-lg hover:bg-secondary-500 md:text-4xl">📸 Vetrina</Link>
             </li>
           </ul>
         </nav>

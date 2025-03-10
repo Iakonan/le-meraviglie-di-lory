@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import ConfirmModal from "../components/ConfirmModal"; // Importiamo la modale
+import { FaTimes } from "react-icons/fa";
 
 export default function DashboardOrders() {
   const [orders, setOrders] = useState([]);
@@ -25,20 +26,20 @@ export default function DashboardOrders() {
     (orderIdFilter === "" || order.id.toString().includes(orderIdFilter))
   );
 
-  // ✅ Funzione per cambiare lo stato dell'ordine
+  // Funzione per cambiare lo stato dell'ordine
   const handleStatusChange = (id, newStatus) => {
     setOrders(orders.map(order =>
       order.id === id ? { ...order, status: newStatus } : order
     ));
   };
 
-  // ✅ Funzione per aprire il modale di conferma eliminazione
+  // Funzione per aprire il modale di conferma eliminazione
   const openDeleteModal = (id) => {
     setSelectedOrderId(id);
     setIsModalOpen(true);
   };
 
-  // ✅ Funzione per eliminare un ordine dopo la conferma
+  // Funzione per eliminare un ordine dopo la conferma
   const confirmDelete = () => {
     setOrders(orders.filter(order => order.id !== selectedOrderId));
     setIsModalOpen(false);
@@ -102,7 +103,7 @@ export default function DashboardOrders() {
                       className="bg-red-500 text-white px-3 py-1 rounded-md shadow hover:bg-red-600 transition"
                       onClick={() => openDeleteModal(order.id)}
                     >
-                      Elimina
+                      <FaTimes size={24} />
                     </button>
                   </td>
                 </tr>
@@ -143,7 +144,7 @@ export default function DashboardOrders() {
                   className="bg-red-500 text-white px-6 py-2 rounded-md shadow hover:bg-red-600 transition"
                   onClick={() => openDeleteModal(order.id)}
                 >
-                  Elimina
+                  <FaTimes size={24} />
                 </button>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom"; // Importiamo Link
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function Sidebar() {
       )}
 
       {/* Sidebar su mobile - Navbar su desktop */}
-      <div className={`fixed top-0 left-0 h-full w-64 bg-primary-500 shadow-lg z-50 transform 
+      <div className={`fixed top-0 left-0 h-full w-64 bg-primary-500 z-50 transform 
         ${isOpen || isDesktop ? "translate-x-0" : "-translate-x-full"} 
         transition-transform duration-300 ease-in-out 
         md:relative md:w-full md:h-auto md:flex md:items-center md:justify-center md:px-8`}>
@@ -54,9 +55,13 @@ export default function Sidebar() {
         {/* Link del menu */}
         <nav className="mt-20 md:mt-0 md:flex md:space-x-10 w-full text-center">
           <ul className="space-y-4 md:space-y-0 md:flex md:space-x-10 text-black w-full justify-center">
-            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Home</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">
+              <Link to="/">Home</Link>
+            </li>
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Chi Sono</li>
-            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Galleria</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">
+              <Link to="/vetrina">Vetrina</Link> {/* Link alla Vetrina */}
+            </li>
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Ordina</li>
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Recensioni</li>
           </ul>

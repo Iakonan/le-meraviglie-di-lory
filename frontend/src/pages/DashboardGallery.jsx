@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import ConfirmModal from "../components/ConfirmModal"; // Importiamo la modale generica
+import { FaTimes } from "react-icons/fa";
 
 export default function DashboardGallery() {
   const [images, setImages] = useState([
@@ -36,7 +37,7 @@ export default function DashboardGallery() {
 
   return (
     <DashboardLayout>
-      <h1 className="text-2xl font-bold mb-6">🖼️ Gestione Gallery</h1>
+      <h1 className="text-2xl font-bold mb-6">🖼️ Gestione Vetrina</h1>
 
       <div className="bg-white p-6 rounded-lg shadow-md mb-6">
         <h2 className="text-lg font-semibold mb-4">📤 Aggiungi una Nuova Immagine</h2>
@@ -66,15 +67,15 @@ export default function DashboardGallery() {
         {images.map((image) => (
           <div key={image.id} className="bg-white p-4 rounded-lg shadow-md relative">
             <img src={image.url} alt={image.description} className="w-full h-48 object-cover rounded-md" />
-            <p className="mt-2 text-sm text-gray-700">{image.description}</p>
+            <p className="mt-2 text-md text-black">{image.description}</p>
             <button
               onClick={() => {
                 setImageToDelete(image.id);
                 setIsModalOpen(true);
               }}
-              className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded-md shadow-md hover:bg-red-600 transition"
+              className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-md rounded-md shadow-md hover:bg-red-600 transition"
             >
-              Elimina
+              <FaTimes size={24} />
             </button>
           </div>
         ))}
