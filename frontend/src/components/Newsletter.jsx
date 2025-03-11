@@ -14,7 +14,7 @@ export default function Newsletter() {
         <input
           type="email"
           placeholder="Email"
-          className="text-lg md:text-2xl w-full md:w-1/4 px-4 py-3 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"
+          className="text-lg md:text-2xl w-full md:w-1/4 px-4 py-3 border border-text-500 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-primary-500"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />

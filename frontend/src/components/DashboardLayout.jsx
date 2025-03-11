@@ -28,6 +28,9 @@ export default function DashboardLayout({ children }) {
             <li>
               <Link to="/dashboard/gallery" className="block p-2 rounded-lg hover:bg-secondary-500 md:text-4xl">📸 Vetrina</Link>
             </li>
+            <li>
+              <Link to="/" className="block p-2 rounded-lg hover:bg-secondary-500 md:text-4xl">🏠 Torna alla Home</Link>
+            </li>
           </ul>
         </nav>
       </div>

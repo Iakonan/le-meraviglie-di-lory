@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ShowcaseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/orders', [OrderController::class, 'index']); // Lista tutti gli ordini
@@ -13,4 +14,6 @@ Route::get('/orders/{id}', [OrderController::class, 'getOrder']); // Filtra ordi
 Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus']); // Aggiorna lo stato ordine
 Route::delete('/orders/{id}', [OrderController::class, 'deleteOrder']); // Elimina ordine
 
-
+Route::get('/showcase', [ShowcaseController::class, 'index']); // Recupera la vetrina
+Route::post('/showcase', [ShowcaseController::class, 'store']); // Aggiunge una nuova immagine
+Route::delete('/showcase/{id}', [ShowcaseController::class, 'destroy']); // Elimina un'immagine

@@ -1,38 +1,39 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { fetchShowcase } from "../api"; // Importiamo la funzione API
 
 const Carousel = () => {
+  const [images, setImages] = useState([]);
+
+  // 🔹 Recupera le ultime 8 immagini dal backend
+  useEffect(() => {
+    fetchShowcase()
+      .then((data) => {
+        const latestImages = data.sort((a, b) => b.id - a.id).slice(0, 8);
+        setImages(latestImages);
+      })
+      .catch((error) => console.error("Errore nel caricamento del carosello:", error));
+  }, []);
+
   return (
-    <Swiper spaceBetween={10} slidesPerView={1}>
-      <SwiperSlide>
-        <div className="w-full h-64 md:h-[500px] md:max-w-3xl mx-auto overflow-hidden rounded-lg">
-          <img 
-            src="/cake1.jpg" 
-            alt="Torta 1" 
-            className="w-full h-full object-cover" 
-          />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="w-full h-64 md:h-[500px] md:max-w-3xl mx-auto overflow-hidden rounded-lg">
-          <img 
-            src="/cake2.jpg" 
-            alt="Torta 2" 
-            className="w-full h-full object-cover" 
-          />
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div className="w-full h-64 md:h-[500px] md:max-w-3xl mx-auto overflow-hidden rounded-lg">
-          <img 
-            src="/cake3.jpg" 
-            alt="Torta 3" 
-            className="w-full h-full object-cover" 
-          />
-        </div>
-      </SwiperSlide>
-    </Swiper>
+    <div className="w-full h-64 md:h-[300px] md:max-w-3xl mx-auto overflow-hidden rounded-lg">
+      {images.length > 0 ? (
+        <Swiper spaceBetween={10} slidesPerView={1} loop={true}>
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img
+                src={image.image}
+                alt={image.description}
+                className="w-full h-full object-cover"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <p className="text-center text-black">Nessuna immagine disponibile</p>
+      )}
+    </div>
   );
 };
 
