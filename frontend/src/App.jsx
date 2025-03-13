@@ -1,17 +1,27 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { AuthProvider, useAuth } from "./context/AuthContext"; // Importiamo il contesto
 import HomePage from "./components/HomePage";
 import Showcase from "./pages/Showcase";
 import DashboardHome from "./pages/DashboardHome";
 import DashboardOrders from "./pages/DashboardOrders";
 import DashboardGallery from "./pages/DashboardGallery";
+import AdminLogin from "./pages/AdminLogin";
 import PageLoader from "./components/PageLoader"; // Importiamo il loader
+
+// 🔹 Componente per proteggere le rotte della dashboard
+const ProtectedRoute = ({ element }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? element : <Navigate to="/admin" replace />;
+};
 
 export default function App() {
   return (
-    <Router>
-      <PageLoaderWrapper />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <PageLoaderWrapper />
+      </Router>
+    </AuthProvider>
   );
 }
 
@@ -30,11 +40,15 @@ function PageLoaderWrapper() {
     <>
       {loading && <PageLoader />}
       <Routes>
+        {/* Rotte pubbliche */}
         <Route path="/" element={<HomePage />} />
         <Route path="/vetrina" element={<Showcase />} />
-        <Route path="/dashboard" element={<DashboardHome />} />
-        <Route path="/dashboard/orders" element={<DashboardOrders />} />
-        <Route path="/dashboard/gallery" element={<DashboardGallery />} />
+        <Route path="/admin" element={<AdminLogin />} />
+
+        {/* 🔐 Rotte protette per la Dashboard */}
+        <Route path="/dashboard" element={<ProtectedRoute element={<DashboardHome />} />} />
+        <Route path="/dashboard/orders" element={<ProtectedRoute element={<DashboardOrders />} />} />
+        <Route path="/dashboard/gallery" element={<ProtectedRoute element={<DashboardGallery />} />} />
       </Routes>
     </>
   );

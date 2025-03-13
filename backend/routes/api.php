@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShowcaseController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
+
+// Rotte per ordini
 Route::get('/orders', [OrderController::class, 'index']); // Lista tutti gli ordini
 Route::post('/orders', [OrderController::class, 'store']); // Creare un nuovo ordine
 Route::get('/orders/{id}', [OrderController::class, 'show']); // Visualizzare un ordine specifico
@@ -14,6 +17,11 @@ Route::get('/orders/{id}', [OrderController::class, 'getOrder']); // Filtra ordi
 Route::put('/orders/{id}/status', [OrderController::class, 'updateStatus']); // Aggiorna lo stato ordine
 Route::delete('/orders/{id}', [OrderController::class, 'deleteOrder']); // Elimina ordine
 
+// Rotte Vetrina
 Route::get('/showcase', [ShowcaseController::class, 'index']); // Recupera la vetrina
 Route::post('/showcase', [ShowcaseController::class, 'store']); // Aggiunge una nuova immagine
 Route::delete('/showcase/{id}', [ShowcaseController::class, 'destroy']); // Elimina un'immagine
+
+// Rotte per il login dell'admin
+Route::post('/admin/login', [AuthController::class, 'login']); // Login dell'admin
+Route::post('/admin/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum'); // Logout dell'admin
