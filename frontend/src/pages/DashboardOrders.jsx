@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DashboardLayout from "../components/DashboardLayout";
-import ConfirmModal from "../components/ConfirmModal"; // Importiamo la modale
-import { FaTimes } from "react-icons/fa";
+import ConfirmModal from "../components/ConfirmModal";
+import { FaTimes, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 export default function DashboardOrders() {
   const [orders, setOrders] = useState([]);
@@ -10,41 +10,76 @@ export default function DashboardOrders() {
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // 🔹 Stato per la paginazione
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  // 📡 Funzione per recuperare gli ordini dal backend con filtri e paginazione
+  const fetchOrders = async (page = 1) => {
+    try {
+      let url = `http://localhost:8000/api/orders?page=${page}&per_page=15`;
+
+      if (customerFilter) {
+        url += `&customer_name=${encodeURIComponent(customerFilter)}`;
+      }
+      if (orderIdFilter) {
+        url += `&id=${orderIdFilter}`;
+      }
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      setOrders(data.data);
+      setTotalPages(data.last_page);
+    } catch (error) {
+      console.error("Errore nel recupero degli ordini:", error);
+    }
+  };
+
+  // 🟢 Effettua la richiesta all'API quando cambia la pagina o i filtri
   useEffect(() => {
-    const fakeOrders = [
-      { id: 1, customer: "Mario Rossi", status: "pending", price: "50.00" },
-      { id: 2, customer: "Giulia Verdi", status: "confirmed", price: "80.00" },
-      { id: 3, customer: "Luca Bianchi", status: "delivered", price: "120.00" },
-      { id: 4, customer: "Elena Neri", status: "pending", price: "65.00" },
-    ];
-    setOrders(fakeOrders);
-  }, []);
+    fetchOrders(currentPage);
+  }, [currentPage, customerFilter, orderIdFilter]);
 
-  // 🔍 Filtriamo gli ordini per nome cliente e ID
-  const filteredOrders = orders.filter(order =>
-    order.customer.toLowerCase().includes(customerFilter.toLowerCase()) &&
-    (orderIdFilter === "" || order.id.toString().includes(orderIdFilter))
-  );
-
-  // Funzione per cambiare lo stato dell'ordine
+  // 🔄 Funzione per cambiare lo stato dell'ordine
   const handleStatusChange = (id, newStatus) => {
     setOrders(orders.map(order =>
       order.id === id ? { ...order, status: newStatus } : order
     ));
   };
 
-  // Funzione per aprire il modale di conferma eliminazione
+  // 🗑️ Aprire il modale di conferma eliminazione
   const openDeleteModal = (id) => {
     setSelectedOrderId(id);
     setIsModalOpen(true);
   };
 
-  // Funzione per eliminare un ordine dopo la conferma
-  const confirmDelete = () => {
-    setOrders(orders.filter(order => order.id !== selectedOrderId));
-    setIsModalOpen(false);
-    setSelectedOrderId(null);
+  // ✅ Confermare ed eliminare un ordine
+  const confirmDelete = async () => {
+    if (!selectedOrderId) return;
+  
+    try {
+      const response = await fetch(`http://localhost:8000/api/orders/${selectedOrderId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+  
+      if (!response.ok) {
+        throw new Error("Errore durante l'eliminazione dell'ordine");
+      }
+  
+      // Rimuove l'ordine eliminato dalla lista
+      setOrders((prevOrders) => prevOrders.filter((order) => order.id !== selectedOrderId));
+  
+      console.log(`✅ Ordine #${selectedOrderId} eliminato con successo`);
+    } catch (error) {
+      console.error("❌ Errore eliminazione ordine:", error);
+    } finally {
+      setIsModalOpen(false);
+      setSelectedOrderId(null);
+    }
   };
+  
 
   return (
     <DashboardLayout>
@@ -81,11 +116,11 @@ export default function DashboardOrders() {
             </tr>
           </thead>
           <tbody>
-            {filteredOrders.length > 0 ? (
-              filteredOrders.map((order) => (
+            {orders.length > 0 ? (
+              orders.map((order) => (
                 <tr key={order.id} className="border-b hover:bg-gray-100">
                   <td className="py-3 px-4">{order.id}</td>
-                  <td className="py-3 px-4">{order.customer}</td>
+                  <td className="py-3 px-4">{order.customer_name}</td>
                   <td className="py-3 px-4 capitalize text-center">
                     <select
                       value={order.status}
@@ -119,39 +154,23 @@ export default function DashboardOrders() {
         </table>
       </div>
 
-      {/* 📱 Sezione Card Mobile */}
-      <div className="md:hidden flex flex-col gap-4">
-        {filteredOrders.length > 0 ? (
-          filteredOrders.map((order) => (
-            <div key={order.id} className="bg-white p-4 rounded-lg shadow-md">
-              <p className="text-lg font-semibold">Ordine #{order.id}</p>
-              <p className="text-text-500">👤 <span className="font-semibold">{order.customer}</span></p>
-              <p className="text-text-500">💰 Prezzo: <span className="font-semibold">€{order.price}</span></p>
-              <p className="text-text-500">
-                📌 Stato:{" "}
-                <select
-                  value={order.status}
-                  onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                  className="px-2 py-1 rounded-md text-sm border"
-                >
-                  <option value="pending">In attesa</option>
-                  <option value="confirmed">Confermato</option>
-                  <option value="delivered">Ritirato</option>
-                </select>
-              </p>
-              <div className="flex justify-center mt-4">
-                <button
-                  className="bg-red-500 text-white px-6 py-2 rounded-md shadow hover:bg-red-600 transition"
-                  onClick={() => openDeleteModal(order.id)}
-                >
-                  <FaTimes size={24} />
-                </button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">Nessun ordine trovato.</p>
-        )}
+      {/* 🔄 Paginazione */}
+      <div className="flex justify-center items-center gap-4 mt-6">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="bg-secondary-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-text-500 transition"
+        >
+          <FaCaretLeft />
+        </button>
+        <span className="text-black font-semibold">Pagina {currentPage} di {totalPages}</span>
+        <button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+          className="bg-secondary-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-text-500 transition"
+        >
+          <FaCaretRight />
+        </button>
       </div>
 
       {/*  Modale di conferma eliminazione */}

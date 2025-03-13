@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom"; // Importiamo Link
+import { useAuth } from "../context/AuthContext"; // 🔹 Importiamo il contesto
 
 export default function Sidebar() {
+  const { isAuthenticated } = useAuth(); // 🔹 Controlliamo se l'admin è loggato
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
@@ -64,6 +66,13 @@ export default function Sidebar() {
             </li>
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Ordina</li>
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Recensioni</li>
+
+            {/* 🔹 Tasto per la Dashboard visibile SOLO se l'admin è loggato */}
+            {isAuthenticated && (
+              <li className="p-3 hover:bg-blue-300 md:hover:bg-transparent cursor-pointer">
+                <Link to="/dashboard">Dashboard</Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

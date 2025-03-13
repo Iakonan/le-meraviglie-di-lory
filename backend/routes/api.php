@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // Rotte per ordini
-Route::get('/orders', [OrderController::class, 'index']); // Lista tutti gli ordini
+Route::get('/orders', [OrderController::class, 'listOrders']); // Lista e filtra ordini
 Route::post('/orders', [OrderController::class, 'store']); // Creare un nuovo ordine
 Route::get('/orders/{id}', [OrderController::class, 'show']); // Visualizzare un ordine specifico
 Route::put('/orders/{id}', [OrderController::class, 'update']); // Aggiornare un ordine

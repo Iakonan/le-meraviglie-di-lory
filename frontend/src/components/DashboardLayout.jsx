@@ -48,7 +48,7 @@ export default function DashboardLayout({ children }) {
             </li>
             <li>
               <Link to="/dashboard/orders" className="block p-2 rounded-lg hover:bg-secondary-500 md:text-4xl">
-                📋 Gestione Ordini
+                📋 Ordini
               </Link>
             </li>
             <li>
@@ -57,11 +57,16 @@ export default function DashboardLayout({ children }) {
               </Link>
             </li>
             <li>
+              <Link to="/" className="block p-2 rounded-lg hover:bg-secondary-500 md:text-4xl">
+                🏠 Home
+              </Link>
+            </li>
+            <li>
               <button
                 onClick={handleLogout}
-                className="block p-2 rounded-lg hover:bg-red-500 text-white md:text-4xl w-full mt-10"
+                className="block p-2 pr-28 rounded-lg hover:bg-red-500 hover:text-white md:text-4xl mt-10"
               >
-                🚪 Logout
+                🚪Esci
               </button>
             </li>
           </ul>

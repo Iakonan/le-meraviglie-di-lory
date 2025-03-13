@@ -14,11 +14,15 @@ use App\Mail\OrderMail;
 
 class OrderController extends Controller
 {
-    // LISTA ORDINI
-    public function index()
+    // LISTA ORDINI CON PAGINAZIONE
+    public function index(Request $request)
     {
-        return response()->json(Order::all());
+        $perPage = $request->query('per_page', 15); // Numero di ordini per pagina (default: 15)
+        $orders = Order::orderBy('created_at', 'desc')->paginate($perPage);
+
+        return response()->json($orders);
     }
+
 
     // CREARE UN NUOVO ORDINE
     public function store(Request $request)
@@ -106,24 +110,25 @@ class OrderController extends Controller
     }
 
     public function listOrders(Request $request)
-    {
-        $query = Order::query();
+{
+    $query = Order::query();
 
-        // Filtro per nome cliente (se presente)
-        if ($request->has('customer_name')) {
-            $query->where('customer_name', 'LIKE', '%' . $request->customer_name . '%');
-        }
-
-        // Filtro per stato ordine (se presente)
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
-        }
-
-        // Ordini paginati (10 per pagina)
-        $orders = $query->orderBy('created_at', 'desc')->paginate(10);
-
-        return response()->json($orders);
+    // 🔍 Filtro per nome cliente (se presente)
+    if ($request->has('customer_name')) {
+        $query->where('customer_name', 'LIKE', '%' . $request->customer_name . '%');
     }
+
+    // 🔍 Filtro per ID ordine (se presente e numerico)
+    if ($request->has('id') && is_numeric($request->id)) {
+        $query->where('id', $request->id);
+    }
+
+    // 📄 Ordini paginati (15 per pagina)
+    $orders = $query->orderBy('created_at', 'desc')->paginate(15);
+
+    return response()->json($orders);
+}
+
 
     public function getOrder($id)
     {
