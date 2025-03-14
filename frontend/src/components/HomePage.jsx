@@ -23,7 +23,7 @@ export default function HomePage() {
             </header>
 
             <div className="px-4 py-6 text-center">
-                <p className="text-4xl text-black">
+                <p className="text-4xl text-font-500">
                     Dolci creazioni fatte con amore e fantasia.
                 </p>
             </div>
@@ -55,7 +55,7 @@ export default function HomePage() {
                         Personalizza la tua torta come desideri e rendi speciale ogni occasione!
                     </p>
                     <button className="bg-secondary-500 text-white py-3 px-6 rounded-md shadow hover:bg-text-500 transition cursor-pointer">
-                        Ordina ora la tua torta
+                        ORDINA ORA LA TUA TORTA
                     </button>
                 </div>
             </section>

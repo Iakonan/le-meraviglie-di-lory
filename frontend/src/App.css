@@ -6,20 +6,17 @@
     --color-secondary-500: rgb(182, 204, 195);
     --color-text-500: rgb(16, 83, 64);
     --color-yelloh-500: rgb(252, 232, 174);
+    --color-font-500: rgb(183, 110, 121);
 }
 
-.amatic-sc-regular {
-    font-family: "Amatic SC", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .amatic-sc-bold {
-    font-family: "Amatic SC", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
+.annie-use-your-telescope-regular {
+  font-family: "Annie Use Your Telescope", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
 
+
+  /* animazione loader */
   @keyframes floatUp {
     0% {
       transform: translateY(0);
