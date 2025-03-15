@@ -16,9 +16,9 @@ export default function HomePage() {
                 style={{ backgroundImage: `url('/loryheader.jpg')` }}
             >
                 <img
-                    src="/logo.jpg"
+                    src="/logo2.png"
                     alt="Logo Le Meraviglie di Lory"
-                    className="h-36 md:h-56 ld:h-64 w-auto rounded-md shadow-lg"
+                    className="h-36 md:h-96 ld:h-64 w-auto rounded-md"
                 />
             </header>
 
