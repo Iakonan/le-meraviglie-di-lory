@@ -55,7 +55,7 @@ export default function HomePage() {
                         Personalizza la tua torta come desideri e rendi speciale ogni occasione!
                     </p>
                     <button className="bg-secondary-500 text-white py-3 px-6 rounded-md shadow hover:bg-text-500 transition cursor-pointer">
-                        ORDINA ORA LA TUA TORTA
+                        ORDINA LA TUA TORTA
                     </button>
                 </div>
             </section>

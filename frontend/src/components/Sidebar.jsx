@@ -64,7 +64,9 @@ export default function Sidebar() {
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">
               <Link to="/vetrina">Vetrina</Link> {/* Link alla Vetrina */}
             </li>
-            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Ordina</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">
+              <Link to="/ordina">Ordina</Link> {/* Link al form per ordinare */}
+            </li>
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Recensioni</li>
 
             {/* 🔹 Tasto per la Dashboard visibile SOLO se l'admin è loggato */}

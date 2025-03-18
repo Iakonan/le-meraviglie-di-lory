@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { AuthProvider, useAuth } from "./context/AuthContext"; // Importiamo il contesto
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import HomePage from "./components/HomePage";
 import Showcase from "./pages/Showcase";
+import OrderForm from "./pages/OrderForm";
 import DashboardHome from "./pages/DashboardHome";
 import DashboardOrders from "./pages/DashboardOrders";
 import DashboardGallery from "./pages/DashboardGallery";
 import AdminLogin from "./pages/AdminLogin";
-import PageLoader from "./components/PageLoader"; // Importiamo il loader
+import PageLoader from "./components/PageLoader";
 
 // 🔹 Componente per proteggere le rotte della dashboard
 const ProtectedRoute = ({ element }) => {
@@ -44,6 +45,7 @@ function PageLoaderWrapper() {
         <Route path="/" element={<HomePage />} />
         <Route path="/vetrina" element={<Showcase />} />
         <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/ordina" element={<OrderForm />} />
 
         {/* 🔐 Rotte protette per la Dashboard */}
         <Route path="/dashboard" element={<ProtectedRoute element={<DashboardHome />} />} />
