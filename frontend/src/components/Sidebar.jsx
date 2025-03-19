@@ -60,7 +60,9 @@ export default function Sidebar() {
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">
               <Link to="/">Home</Link>
             </li>
-            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">Chi Sono</li>
+            <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">
+              <Link to="/chi-sono">Chi sono</Link> {/* Link alla Bio */}
+            </li>
             <li className="p-3 hover:bg-secondary-500 md:hover:bg-transparent cursor-pointer">
               <Link to="/vetrina">Vetrina</Link> {/* Link alla Vetrina */}
             </li>

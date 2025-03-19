@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import HomePage from "./components/HomePage";
 import Showcase from "./pages/Showcase";
 import OrderForm from "./pages/OrderForm";
+import ChiSono from "./pages/ChiSono";
 import DashboardHome from "./pages/DashboardHome";
 import DashboardOrders from "./pages/DashboardOrders";
 import DashboardGallery from "./pages/DashboardGallery";
@@ -46,6 +47,8 @@ function PageLoaderWrapper() {
         <Route path="/vetrina" element={<Showcase />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/ordina" element={<OrderForm />} />
+        <Route path="/chi-sono" element={<ChiSono />} />
+
 
         {/* 🔐 Rotte protette per la Dashboard */}
         <Route path="/dashboard" element={<ProtectedRoute element={<DashboardHome />} />} />
