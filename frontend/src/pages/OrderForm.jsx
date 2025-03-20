@@ -189,9 +189,13 @@ export default function OrderForm() {
   return (
     <div className="flex flex-col min-h-screen bg-primary-500">
       <Sidebar />
-      <div className="md:bg-secondary-500 h-10"></div>
+      <header className="text-center py-12 w-full px-20 bg-secondary-500 mb-5">
+        <h1 className="text-4xl font-bold text-black">Ordina la tua torta</h1>
+        <p className="text-lg text-black mt-2">
+          Personalizza la tua torta con i nostri ingredienti di alta qualità e crea qualcosa di unico per il tuo evento!
+        </p>
+      </header>
       <main className="flex-grow p-6 max-w-lg mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-6">🎂 Ordina la tua torta</h1>
         <form className="bg-white p-6 shadow-lg rounded-lg" onSubmit={handleSubmit}>
           <h2 className="text-xl font-semibold mb-4">{formSteps[formStep].label}</h2>
           {formSteps[formStep].component}

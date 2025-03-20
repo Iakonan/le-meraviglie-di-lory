@@ -14,8 +14,6 @@ export default function AdminLogin() {
     setError("");
 
     try {
-      console.log("🔍 Tentativo di login con:", { email, password });
-
       const response = await fetch("http://localhost:8000/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -23,8 +21,6 @@ export default function AdminLogin() {
       });
 
       const data = await response.json();
-      console.log("📡 Risposta ricevuta:", response);
-      console.log("📄 Dati ricevuti:", data);
 
       if (!response.ok) {
         throw new Error(data.error || "Errore durante il login");
@@ -32,7 +28,6 @@ export default function AdminLogin() {
 
       // ✅ Salva il token con la funzione login del contesto
       login(data.token);
-      console.log("✅ Token salvato:", data.token);
 
       // 🔄 Reindirizza alla dashboard
       navigate("/dashboard");

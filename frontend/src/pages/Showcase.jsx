@@ -3,19 +3,22 @@ import Sidebar from "../components/Sidebar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import ShowcaseCard from "../components/ShowcaseCard";
-import { FaCaretRight, FaCaretLeft } from "react-icons/fa";
-import { fetchShowcase } from "../api"; // 🔹 Importiamo la funzione per recuperare i dati dal backend
+import { FaCaretRight, FaCaretLeft, FaTimes } from "react-icons/fa";
+import { fetchShowcase } from "../api";
 
 export default function Showcase() {
-    const [showcaseItems, setShowcaseItems] = useState([]); // 🔹 Stato per salvare i dati dal backend
+    const [showcaseItems, setShowcaseItems] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 9; // Stessa paginazione della dashboard
+    const itemsPerPage = 9;
 
-    // 🔹 Recupera i dati dal backend quando il componente viene montato
+    // Stato per la modale
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    // Recupera i dati dal backend
     useEffect(() => {
         fetchShowcase()
             .then((data) => {
-                // Ordiniamo gli elementi dal più recente al più vecchio
                 const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                 setShowcaseItems(sortedData);
             })
@@ -26,7 +29,6 @@ export default function Showcase() {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const displayedItems = showcaseItems.slice(startIndex, startIndex + itemsPerPage);
 
-    // 🔹 Scroll in cima alla pagina quando si cambia pagina
     useLayoutEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, [currentPage]);
@@ -43,6 +45,22 @@ export default function Showcase() {
         }
     };
 
+    // Apri la modale con animazione
+    const openModal = (item) => {
+        setSelectedItem(item);
+        setTimeout(() => {
+            setIsModalVisible(true);
+        }, 50);
+    };
+
+    // Chiudi la modale con transizione fluida
+    const closeModal = () => {
+        setIsModalVisible(false);
+        setTimeout(() => {
+            setSelectedItem(null);
+        }, 300); // Attendi il completamento dell'animazione
+    };
+
     return (
         <div className="relative min-h-screen bg-primary-500 flex flex-col items-center">
             <Sidebar />
@@ -55,10 +73,12 @@ export default function Showcase() {
                 </p>
             </header>
 
-            {/* Grid di immagini con tre colonne su desktop */}
+            {/* Grid di immagini */}
             <section className="w-full max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
                 {displayedItems.map((item) => (
-                    <ShowcaseCard key={item.id} image={item.image} description={item.description} price={item.price} />
+                    <div key={item.id} onClick={() => openModal(item)} className="cursor-pointer">
+                        <ShowcaseCard image={item.image} description={item.description} price={item.price} />
+                    </div>
                 ))}
             </section>
 
@@ -87,7 +107,32 @@ export default function Showcase() {
                 </button>
             </div>
 
-            {/* 🔹 Sezione separata per Newsletter e Footer per larghezza completa */}
+            {/* Modale con transizione fluida */}
+            {selectedItem && (
+                <div 
+                    className={`fixed inset-0 bg-trasparent bg-opacity-50 backdrop-blur-md flex items-center justify-center z-50 transition-opacity duration-300 ${
+                        isModalVisible ? "opacity-100" : "opacity-0"
+                    }`}
+                    onClick={closeModal} 
+                >
+                    <div 
+                        className={`m-5 bg-white p-6 rounded-lg shadow-lg max-w-3xl w-full relative transform transition-transform duration-300 ${
+                            isModalVisible ? "scale-100" : "scale-90"
+                        }`}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button className="absolute top-2 right-2 text-gray-700 hover:text-black" onClick={closeModal}>
+                            <FaTimes size={24} />
+                        </button>
+                        <img src={selectedItem.image} alt={selectedItem.description} className="w-full h-auto rounded-lg mb-4" />
+                        <hr className="text-secondary-500 mb-2" />
+                        <h2 className="text-2xl font-bold text-black">{selectedItem.description}</h2>
+                        <p className="text-xl text-gray-800 mt-2">Prezzo: €{selectedItem.price}</p>
+                    </div>
+                </div>
+            )}
+
+            {/* Sezione Newsletter e Footer */}
             <div className="w-full">
                 <Newsletter />
                 <Footer />

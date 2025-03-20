@@ -62,7 +62,7 @@ export default function HomePage() {
 
             {/* Sezione Recensioni */}
             <section className="reviews w-full px-4 py-8 text-center">
-                <h2 className="text-2xl font-semibold text-black md:text-4xl mb-4">Recensioni dei Clienti</h2>
+                <h2 className="text-2xl font-semibold text-black md:text-4xl mb-4">Cosa dicono di me</h2>
                 <Reviews />
             </section>
 
