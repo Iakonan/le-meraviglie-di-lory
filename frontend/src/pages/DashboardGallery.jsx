@@ -12,8 +12,8 @@ export default function DashboardGallery() {
   const [newPrice, setNewPrice] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageToDelete, setImageToDelete] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(""); // Stato per errori
-  const [successMessage, setSuccessMessage] = useState(""); // Stato per messaggi di successo
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   // Paginazione
   const itemsPerPage = 9;
@@ -22,11 +22,14 @@ export default function DashboardGallery() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const displayedItems = images.slice(startIndex, startIndex + itemsPerPage);
 
-  // 🔄 Carica le immagini dal backend
+  // 🔄 Carica le immagini dal backend e le ordina per data di creazione
   useEffect(() => {
     fetchShowcase()
-      .then(setImages)
-      .catch((error) => setErrorMessage(error.message)); // Gestione errori
+      .then((data) => {
+        const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Ordine decrescente
+        setImages(sortedData);
+      })
+      .catch((error) => setErrorMessage(error.message));
   }, []);
 
   // 🔹 Scroll in cima quando si cambia pagina
@@ -37,17 +40,16 @@ export default function DashboardGallery() {
   const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
   const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
 
-  // 📤 Aggiunge una nuova immagine con controllo formati
+  // 📤 Aggiunge una nuova immagine
   const handleAddImage = async () => {
-    setErrorMessage(""); // Reset errori
-    setSuccessMessage(""); // Reset successo
+    setErrorMessage("");
+    setSuccessMessage("");
 
     if (!newImage || newDescription.trim() === "" || newPrice.trim() === "") {
       setErrorMessage("Tutti i campi sono obbligatori.");
       return;
     }
 
-    // Controllo formato immagine
     const allowedFormats = ["image/jpeg", "image/jpg", "image/png"];
     if (!allowedFormats.includes(newImage.type)) {
       setErrorMessage("Formato immagine non valido. Usa JPEG, JPG o PNG.");
@@ -61,7 +63,7 @@ export default function DashboardGallery() {
 
     try {
       const addedImage = await addShowcaseImage(formData);
-      setImages([...images, addedImage]);
+      setImages([addedImage, ...images]); // Aggiunge in cima
       setNewImage(null);
       setNewDescription("");
       setNewPrice("");
@@ -73,8 +75,8 @@ export default function DashboardGallery() {
 
   // 🗑️ Elimina un'immagine con gestione errori
   const confirmDelete = async () => {
-    setErrorMessage(""); // Reset errori
-    setSuccessMessage(""); // Reset successo
+    setErrorMessage("");
+    setSuccessMessage("");
 
     if (imageToDelete !== null) {
       try {
@@ -93,11 +95,9 @@ export default function DashboardGallery() {
     <DashboardLayout>
       <h1 className="text-4xl font-bold text-black text-center mb-6">Gestione Vetrina</h1>
 
-      {/* Messaggi di errore e successo */}
       {errorMessage && <div className="bg-red-500 text-white p-2 rounded-md text-center mb-4">{errorMessage}</div>}
       {successMessage && <div className="bg-green-500 text-white p-2 rounded-md text-center mb-4">{successMessage}</div>}
 
-      {/* Form inline su desktop, colonna su mobile */}
       <div className="bg-white p-4 rounded-lg shadow-md mb-6 max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:gap-4">
         <input type="file" accept="image/jpeg,image/jpg,image/png" className="border border-gray-300 p-2 rounded-md md:w-1/4 w-full"
           onChange={(e) => setNewImage(e.target.files[0])} />
@@ -111,7 +111,6 @@ export default function DashboardGallery() {
         </button>
       </div>
 
-      {/* Grid immagini con dimensioni uniformi */}
       <section className="w-full max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
         {displayedItems.map((item) => (
           <div key={item.id} className="relative">
@@ -124,7 +123,6 @@ export default function DashboardGallery() {
         ))}
       </section>
 
-      {/* Controlli Paginazione */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 mt-6 mb-6">
           <button onClick={prevPage} disabled={currentPage === 1}
@@ -139,7 +137,6 @@ export default function DashboardGallery() {
         </div>
       )}
 
-      {/* Modale di conferma eliminazione */}
       <ConfirmModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={confirmDelete} />
     </DashboardLayout>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { fetchShowcase } from "../api"; // Importiamo la funzione API
+import { fetchShowcase } from "../api";
 
 const Carousel = () => {
   const [images, setImages] = useState([]);
@@ -17,16 +17,18 @@ const Carousel = () => {
   }, []);
 
   return (
-    <div className="w-full h-64 md:h-[300px] md:max-w-3xl mx-auto overflow-hidden rounded-lg">
+    <div className="w-full max-w-5xl mx-auto overflow-hidden rounded-lg">
       {images.length > 0 ? (
         <Swiper spaceBetween={10} slidesPerView={1} loop={true}>
           {images.map((image, index) => (
-            <SwiperSlide key={index}>
-              <img
-                src={image.image}
-                alt={image.description}
-                className="w-full h-full object-cover"
-              />
+            <SwiperSlide key={index} className="flex justify-center items-center">
+              <div className="w-full h-72 md:h-96 lg:h-[500px] flex justify-center items-center overflow-hidden">
+                <img
+                  src={image.image}
+                  alt={image.description}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

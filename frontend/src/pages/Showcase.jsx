@@ -14,7 +14,11 @@ export default function Showcase() {
     // 🔹 Recupera i dati dal backend quando il componente viene montato
     useEffect(() => {
         fetchShowcase()
-            .then((data) => setShowcaseItems(data))
+            .then((data) => {
+                // Ordiniamo gli elementi dal più recente al più vecchio
+                const sortedData = data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                setShowcaseItems(sortedData);
+            })
             .catch((error) => console.error("Errore nel recupero dei dati:", error));
     }, []);
 

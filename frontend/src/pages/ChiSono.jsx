@@ -17,7 +17,7 @@ export default function ChiSono() {
       </header>
 
       {/* Grid per testo e immagini (come pagina di giornale) */}
-      <section className="w-full max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center mt-5">
+      <section className="w-full px-6 grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center mt-5">
         {/* Sezione 1 - Immagine a sinistra, Testo a destra */}
         <img
           src="/loryheader.jpg"
@@ -30,45 +30,7 @@ export default function ChiSono() {
             Fin da bambina ho amato creare dolci unici. Ogni torta è un'opera d'arte, fatta con amore e cura.
           </p>
         </div>
-
-        {/* Sezione 2 - Testo a sinistra, Immagine a destra */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Ingredienti di qualità</h2>
-          <p className="text-lg text-gray-800">
-            Uso solo ingredienti selezionati per garantire il massimo della qualità e del gusto in ogni dolce.
-          </p>
-        </div>
-        <img
-          src="/loryheader.jpg"
-          alt="Ingredienti di qualità"
-          className="rounded-lg shadow-lg"
-        />
-
-        {/* Sezione 3 - Immagine a sinistra, Testo a destra */}
-        <img
-          src="/loryheader.jpg"
-          alt="Esperienza nella pasticceria"
-          className="rounded-lg shadow-lg"
-        />
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Esperienza e Creatività</h2>
-          <p className="text-lg text-gray-800">
-            Con anni di esperienza, realizzo dolci personalizzati per ogni occasione speciale, unendo creatività e sapore.
-          </p>
-        </div>
-
-        {/* Sezione 4 - Testo a sinistra, Immagine a destra */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Perché scegliere me?</h2>
-          <p className="text-lg text-gray-800">
-            Ogni dolce racconta una storia unica, pensata per emozionare e sorprendere chi lo assaggia.
-          </p>
-        </div>
-        <img
-          src="/loryheader.jpg"
-          alt="Torte personalizzate"
-          className="rounded-lg shadow-lg"
-        />
+        
       </section>
       <section className="w-full max-w-6xl mx-auto px-4 mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Card Contatti */}
