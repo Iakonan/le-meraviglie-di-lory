@@ -15,7 +15,7 @@ export const orderReducer = (state, action) => {
     case "SET_PRODUCT":
       return {
         ...state,
-        product: action.value,
+        product: action.payload,
         cakeType: "",
         tiers: "",
         spongeFlavor: "",
@@ -27,7 +27,7 @@ export const orderReducer = (state, action) => {
     case "SET_CAKE_TYPE":
       return {
         ...state,
-        cakeType: action.value,
+        cakeType: action.payload,
         tiers: "",
         spongeFlavor: "",
         spongeSoak: "",
@@ -37,25 +37,25 @@ export const orderReducer = (state, action) => {
     case "SET_TIERS":
       return {
         ...state,
-        tiers: action.value,
+        tiers: action.payload,
       };
 
     case "SET_SPONGE_FLAVOR":
       return {
         ...state,
-        spongeFlavor: action.value,
+        spongeFlavor: action.payload,
       };
 
     case "SET_SPONGE_SOAK":
       return {
         ...state,
-        spongeSoak: action.value,
+        spongeSoak: action.payload,
       };
 
     case "SET_CREAM":
       return {
         ...state,
-        cream: action.value,
+        cream: action.payload,
       };
 
     case "TOGGLE_EXTRA":
@@ -69,14 +69,15 @@ export const orderReducer = (state, action) => {
     case "SET_BUTTERCREAM_COLOR":
       return {
         ...state,
-        buttercreamColor: action.value,
+        buttercreamColor: action.payload,
       };
 
-    case "SET_THEME":
-      return {
-        ...state,
-        theme: action.value,
-      };
+      case "SET_FIELD":
+        return {
+          ...state,
+          [action.field]: action.value,
+        };
+      
 
     case "RESET_ORDER":
       return initialState;

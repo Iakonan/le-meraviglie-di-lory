@@ -3,6 +3,14 @@ import Sidebar from "../components/Sidebar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import ProductSelection from "../components/orderTiles/ProductSelection";
+import TypeSelection from "../components/orderTiles/TypeSelection";
+import LayersSelection from "../components/orderTiles/LayersSelection";
+import SpongeFlavorSelection from "../components/orderTiles/SpongeFlavorSelection";
+import SpongeSoakSelection from "../components/orderTiles/SpongeSoakSelection";
+import CreamSelection from "../components/orderTiles/CreamSelection";
+import ExtraSelection from "../components/orderTiles/ExtraSelection";
+import ThemeSelection from "../components/orderTiles/ThemeSelection";
+import CreamColorSelection from "../components/orderTiles/CreamColorSelection";
 import { initialState, orderReducer } from "../reducers/orderReducer";
 
 export default function OrderForm() {
@@ -32,6 +40,14 @@ export default function OrderForm() {
         {/* Colonna form a destra */}
         <div className="w-full md:w-3/4 bg-secondary-500 rounded-xl p-6 grid grid-cols-4 gap-4">
           <ProductSelection state={state} dispatch={dispatch} />
+          <TypeSelection state={state} dispatch={dispatch} />
+          <LayersSelection state={state} dispatch={dispatch} />
+          <SpongeFlavorSelection state={state} dispatch={dispatch} />
+          <SpongeSoakSelection state={state} dispatch={dispatch} />
+          <CreamSelection state={state} dispatch={dispatch} />
+          <ExtraSelection state={state} dispatch={dispatch} />
+          <ThemeSelection state={state} dispatch={dispatch} />
+          <CreamColorSelection state={state} dispatch={dispatch} />
         </div>
       </main>
 

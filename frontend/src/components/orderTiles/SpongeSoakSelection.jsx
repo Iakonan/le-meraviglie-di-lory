@@ -1,21 +1,20 @@
-export default function TypeSelection({ state, dispatch }) {
-    const typeOptions = [
-      { label: "Classica", value: "classica" },
-      { label: "Da Forno", value: "forno" },
-      { label: "A Piani", value: "piani" },
+export default function SpongeSoakSelection({ state, dispatch }) {
+    const soakOptions = [
+      { label: "Analcolica", value: "analcolica" },
+      { label: "Alcolica", value: "alcolica" },
     ];
   
     const handleChange = (e) => {
-      dispatch({ type: "SET_CAKE_TYPE", payload: e.target.value });
+      dispatch({ type: "SET_SPONGE_SOAK", payload: e.target.value });
     };
   
-    const isDisabled = state.product !== "torta";
+    const isDisabled = state.product !== "torta" || state.cakeType !== "classica";
   
     return (
       <div className={`rounded-xl p-4 ${isDisabled ? "opacity-50 cursor-not-allowed" : "bg-primary-500"}`}>
-        <h3 className="font-semibold mb-3 text-black">Di quale tipo?</h3>
+        <h3 className="font-semibold mb-3 text-black">Bagna del Pan di Spagna</h3>
         <div className="grid gap-y-3 gap-x-6">
-          {typeOptions.map((option) => (
+          {soakOptions.map((option) => (
             <div key={option.value} className="flex items-center justify-between text-black">
               <label htmlFor={option.value} className="text-base">
                 {option.label}
@@ -23,10 +22,10 @@ export default function TypeSelection({ state, dispatch }) {
               <input
                 id={option.value}
                 type="radio"
-                name="cakeType"
+                name="spongeSoak"
                 value={option.value}
                 onChange={handleChange}
-                checked={state.cakeType === option.value}
+                checked={state.spongeSoak === option.value}
                 disabled={isDisabled}
                 className="w-4 h-4 accent-text-500"
               />
