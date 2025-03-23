@@ -1,63 +1,45 @@
-
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import Sidebar from "../components/Sidebar";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
-import { FaCaretRight, FaCaretLeft } from "react-icons/fa";
+import ProductSelection from "../components/orderTiles/ProductSelection";
 import { initialState, orderReducer } from "../reducers/orderReducer";
-import StepOne from "../components/orderSteps/StepOne.jsx";
 
 export default function OrderForm() {
   const [state, dispatch] = useReducer(orderReducer, initialState);
-  const [currentStep, setCurrentStep] = useState(0);
-
-  const steps = [
-    <StepOne state={state} dispatch={dispatch} key={0} />,
-    // Qui aggiungeremo gli altri step in seguito
-  ];
-
-  const nextStep = () => {
-    if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
-  };
-
-  const prevStep = () => {
-    if (currentStep > 0) setCurrentStep(currentStep - 1);
-  };
 
   return (
     <div className="relative min-h-screen bg-primary-500 flex flex-col items-center">
       <Sidebar />
+
+      {/* Header */}
       <header className="text-center py-12 w-full px-20 bg-secondary-500 mb-5">
         <h1 className="text-4xl font-bold text-black">Ordina la tua creazione personalizzata</h1>
         <p className="text-lg text-black mt-2">Segui i passaggi per completare il tuo ordine</p>
       </header>
 
-      <div className="w-full px-8">
-        {steps[currentStep]}
-      </div>
+      {/* Contenitore principale */}
+      <main className="w-full flex flex-col md:flex-row gap-6 px-8 mb-16">
+        {/* Colonna immagine a sinistra */}
+        <div className="w-full md:w-1/4 flex justify-center items-start">
+          <img
+            src="/ordercake.jpg"
+            alt="Anteprima torta"
+            className="rounded-xl shadow-lg w-full max-w-xs"
+          />
+        </div>
 
-      <div className="flex justify-between items-center w-full max-w-6xl px-6 mt-10 mb-16">
-        <button
-          onClick={prevStep}
-          disabled={currentStep === 0}
-          className={`px-4 py-2 rounded-md ${
-            currentStep === 0
-              ? "bg-gray-300"
-              : "bg-secondary-500 text-white hover:bg-text-500"
-          } transition`}
-        >
-          <FaCaretLeft />
-        </button>
-        <button
-          onClick={nextStep}
-          className="px-4 py-2 bg-secondary-500 text-white rounded-md hover:bg-text-500 transition"
-        >
-          <FaCaretRight />
-        </button>
-      </div>
+        {/* Colonna form a destra */}
+        <div className="w-full md:w-3/4 bg-secondary-500 rounded-xl p-6 grid grid-cols-4 gap-4">
+          <ProductSelection state={state} dispatch={dispatch} />
+        </div>
+      </main>
 
-      <Newsletter />
-      <Footer />
+      {/* Footer e newsletter */}
+      <div className="w-full">
+        <Newsletter />
+        <Footer />
+      </div>
     </div>
   );
 }
