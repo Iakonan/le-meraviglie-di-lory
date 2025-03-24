@@ -5,6 +5,7 @@ export default function ProductSelection({ state, dispatch }) {
       { label: "Muffin", value: "muffin" },
       { label: "Cakepop", value: "cakepop" },
       { label: "Biscotti", value: "biscotti" },
+      { label: "Bento", value: "bento" },
     ];
   
     const handleChange = (e) => {
@@ -13,7 +14,6 @@ export default function ProductSelection({ state, dispatch }) {
   
     return (
       <div className="bg-primary-500 rounded-xl p-4">
-        <h3 className="font-semibold mb-3 text-black">Cosa ti serve?</h3>
         <div className="grid grid-cols-2 gap-y-3 gap-x-6">
           {productOptions.map((option) => (
             <label

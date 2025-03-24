@@ -11,8 +11,7 @@ export default function CreamColorSelection({ state, dispatch }) {
       { label: "Marrone", value: "marrone", bg: "bg-amber-900" },
       { label: "Celeste", value: "celeste", bg: "bg-sky-300" },
       { label: "Rosso", value: "rosso", bg: "bg-red-400" },
-      { label: "Nero", value: "nero", bg: "bg-black" },
-      { label: "Lilla", value: "lilla", bg: "bg-violet-300" },
+      { label: "Nero", value: "nero", bg: "bg-black text-white" },
     ];
   
     const isDisabled =
@@ -31,10 +30,7 @@ export default function CreamColorSelection({ state, dispatch }) {
           isDisabled ? "opacity-50 cursor-not-allowed" : "bg-primary-500"
         }`}
       >
-        <h3 className="font-semibold mb-3 text-black">
-          La tua torta sarà coperta di crema al burro. Scegli il colore:
-        </h3>
-        <div className="grid grid-cols-13 gap-4">
+        <div className="grid grid-cols-4 md:grid-cols-3 gap-4 justify-items-center">
           {colorOptions.map((option) => {
             const isSelected = state.buttercreamColor === option.value;
             return (
@@ -49,9 +45,9 @@ export default function CreamColorSelection({ state, dispatch }) {
                   className="hidden"
                 />
                 <div
-                  className={`w-[90px] h-[90px] rounded-lg shadow-md flex items-center justify-center font-bold text-sm transition
+                  className={`w-[60px] h-[60px] rounded-lg shadow-md flex items-center justify-center font-bold text-sm transition
                     ${option.bg}
-                    ${isSelected ? "border-4 border-secondary-500" : "hover:opacity-80"}
+                    ${isSelected ? "border-4 border-green-500" : "hover:opacity-80"}
                   `}
                 >
                   {option.label}

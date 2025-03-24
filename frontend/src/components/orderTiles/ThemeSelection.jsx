@@ -9,12 +9,11 @@ export default function ThemeSelection({ state, dispatch }) {
   
     return (
       <div className="bg-primary-500 rounded-xl p-4">
-        <h3 className="font-semibold mb-3 text-black">Hai un tema in mente?</h3>
         <input
           type="text"
           name="theme"
           maxLength={20}
-          placeholder="Es. Frozen, Calcio..."
+          placeholder="Compleanno, Battesimo"
           value={state.theme}
           onChange={handleChange}
           className="w-full p-2 rounded-md shadow-inner border border-gray-300 text-black placeholder:text-gray-400"

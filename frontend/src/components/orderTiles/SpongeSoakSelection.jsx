@@ -1,7 +1,8 @@
 export default function SpongeSoakSelection({ state, dispatch }) {
     const soakOptions = [
-      { label: "Analcolica", value: "analcolica" },
       { label: "Alcolica", value: "alcolica" },
+      { label: "Analcolica", value: "analcolica" },
+      
     ];
   
     const handleChange = (e) => {
@@ -12,7 +13,6 @@ export default function SpongeSoakSelection({ state, dispatch }) {
   
     return (
       <div className={`rounded-xl p-4 ${isDisabled ? "opacity-50 cursor-not-allowed" : "bg-primary-500"}`}>
-        <h3 className="font-semibold mb-3 text-black">Bagna del Pan di Spagna</h3>
         <div className="grid gap-y-3 gap-x-6">
           {soakOptions.map((option) => (
             <div key={option.value} className="flex items-center justify-between text-black">

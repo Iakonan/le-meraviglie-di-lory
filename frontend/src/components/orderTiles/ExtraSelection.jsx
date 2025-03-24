@@ -14,7 +14,6 @@ export default function ExtraSelection({ state, dispatch }) {
   
     return (
       <div className="bg-primary-500 rounded-xl p-4">
-        <h3 className="font-semibold mb-3 text-black">Altro?</h3>
         <div className=" gap-y-3 gap-x-6">
           {extraOptions.map((option) => (
             <div key={option.value} className="flex items-center justify-between text-black">

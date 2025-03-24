@@ -12,7 +12,6 @@ export default function SpongeFlavorSelection({ state, dispatch }) {
   
     return (
       <div className={`rounded-xl p-4 ${isDisabled ? "opacity-50 cursor-not-allowed" : "bg-primary-500"}`}>
-        <h3 className="font-semibold mb-3 text-black">Gusto del Pan di Spagna</h3>
         <div className="grid gap-y-3 gap-x-6">
           {spongeFlavors.map((option) => (
             <div key={option.value} className="flex items-center justify-between text-black">

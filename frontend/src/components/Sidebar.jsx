@@ -23,7 +23,7 @@ export default function Sidebar() {
       {/* Bottone hamburger visibile SOLO su mobile */}
       {!isDesktop && (
         <button 
-          className="md:hidden fixed top-4 left-4 z-50 text-black p-2 rounded-md shadow-lg"
+          className="md:hidden fixed top-4 left-4 z-50 text-white p-2 rounded-md shadow-lg"
           onClick={() => setIsOpen(true)}
         >
           <FaBars size={24} />
