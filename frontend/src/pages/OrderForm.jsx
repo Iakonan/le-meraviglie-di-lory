@@ -110,7 +110,7 @@ export default function OrderForm() {
     <div className="relative min-h-screen bg-order-500 flex flex-col items-center">
       <Sidebar />
 
-      <main className="w-full max-w-4xl px-4">
+      <main className="w-full max-w-4xl px-4 mt-60">
         <div className="bg-white shadow-lg rounded-xl p-6 space-y-6">
           <p className="text-xl font-semibold text-black">{steps[step].message}</p>
           {steps[step].component}
@@ -123,7 +123,7 @@ export default function OrderForm() {
               className={`px-4 py-2 rounded-md ${
                 step === 0
                   ? "bg-gray-300 text-white cursor-not-allowed"
-                  : "bg-gray-300 text-white hover:bg-text-500"
+                  : "bg-gray-300 text-white hover:bg-font-500"
               } transition`}
             >
               Indietro
@@ -132,13 +132,13 @@ export default function OrderForm() {
             {step < steps.length - 1 ? (
               <button
                 onClick={nextStep}
-                className="px-4 py-2 bg-order-500 text-white rounded-md hover:bg-text-500 transition"
+                className="px-4 py-2 bg-order-500 text-white rounded-md hover:bg-font-500 transition"
               >
                 Avanti
               </button>
             ) : (
               <button
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+                className="px-4 py-2 bg-order-500 text-white rounded-md hover:bg-font-500 transition"
                 onClick={() => alert("Prossimo step: riepilogo ordine!")}
               >
                 Prosegui
