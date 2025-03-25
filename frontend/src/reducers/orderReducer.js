@@ -24,15 +24,22 @@ export const orderReducer = (state, action) => {
         buttercreamColor: "",
       };
 
-    case "SET_CAKE_TYPE":
-      return {
-        ...state,
-        cakeType: action.payload,
-        tiers: "",
-        spongeFlavor: "",
-        spongeSoak: "",
-        buttercreamColor: "",
-      };
+      case "SET_CAKE_TYPE":
+        return {
+          ...state,
+          cakeType: action.payload,
+          tiers: action.payload === "piani" ? state.tiers : "",
+          spongeFlavor:
+            action.payload === "classica" || action.payload === "piani"
+              ? state.spongeFlavor
+              : "",
+          spongeSoak:
+            action.payload === "classica" || action.payload === "piani"
+              ? state.spongeSoak
+              : "",
+          buttercreamColor: "",
+        };
+      
 
     case "SET_TIERS":
       return {

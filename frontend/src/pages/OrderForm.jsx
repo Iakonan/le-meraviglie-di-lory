@@ -68,14 +68,15 @@ export default function OrderForm() {
             message: "Quanti piani?",
             component: <LayersSelection state={state} dispatch={dispatch} />,
           },
-          state.cakeType === "classica" && {
+          (state.cakeType === "classica" || state.cakeType === "piani") && {
             message: "Gusto del pan di Spagna?",
             component: <SpongeFlavorSelection state={state} dispatch={dispatch} />,
           },
-          state.cakeType === "classica" && {
+          (state.cakeType === "classica" || state.cakeType === "piani") && {
             message: "Bagna alcolica o analcolica?",
             component: <SpongeSoakSelection state={state} dispatch={dispatch} />,
           },
+          
         ].filter(Boolean)
       : []),
     ...(state.product === "torta" || state.product === "creamtart"
@@ -107,46 +108,50 @@ export default function OrderForm() {
   
 
   return (
-    <div className="relative min-h-screen bg-order-500 flex flex-col items-center">
+    <div className="relative h-screen overflow-hidden bg-order-500">
       <Sidebar />
-
-      <main className="w-full max-w-4xl px-4 mt-60">
-        <div className="bg-white shadow-lg rounded-xl p-6 space-y-6">
-          <p className="text-xl font-semibold text-black">{steps[step].message}</p>
-          {steps[step].component}
-
-          {/* Navigazione */}
-          <div className="flex justify-between mt-6">
-            <button
-              onClick={prevStep}
-              disabled={step === 0}
-              className={`px-4 py-2 rounded-md ${
-                step === 0
-                  ? "bg-gray-300 text-white cursor-not-allowed"
-                  : "bg-gray-300 text-white hover:bg-font-500"
-              } transition`}
-            >
-              Indietro
-            </button>
-
-            {step < steps.length - 1 ? (
+  
+      {/* Contenitore principale con flex solo per il contenuto, sidebar esclusa */}
+      <div className="flex justify-center items-center min-h-screen">
+        <main className="w-full max-w-4xl px-4">
+          <div className="bg-primary-500 shadow-lg rounded-xl p-6 space-y-6">
+            <p className="text-xl font-semibold text-black">{steps[step].message}</p>
+            {steps[step].component}
+  
+            {/* Navigazione */}
+            <div className="flex justify-between mt-6">
               <button
-                onClick={nextStep}
-                className="px-4 py-2 bg-order-500 text-white rounded-md hover:bg-font-500 transition"
+                onClick={prevStep}
+                disabled={step === 0}
+                className={`px-4 py-2 rounded-md ${
+                  step === 0
+                    ? "bg-gray-300 text-white cursor-not-allowed"
+                    : "bg-gray-300 text-white hover:bg-font-500"
+                } transition`}
               >
-                Avanti
+                Indietro
               </button>
-            ) : (
-              <button
-                className="px-4 py-2 bg-order-500 text-white rounded-md hover:bg-font-500 transition"
-                onClick={() => alert("Prossimo step: riepilogo ordine!")}
-              >
-                Prosegui
-              </button>
-            )}
+  
+              {step < steps.length - 1 ? (
+                <button
+                  onClick={nextStep}
+                  className="px-4 py-2 bg-order-500 text-white rounded-md hover:bg-font-500 transition"
+                >
+                  Avanti
+                </button>
+              ) : (
+                <button
+                  className="px-4 py-2 bg-order-500 text-white rounded-md hover:bg-font-500 transition"
+                  onClick={() => alert("Prossimo step: riepilogo ordine!")}
+                >
+                  Prosegui
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
+  
 }

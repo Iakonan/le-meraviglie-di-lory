@@ -1,40 +1,48 @@
 export default function ProductSelection({ state, dispatch }) {
-    const productOptions = [
-      { label: "Torta", value: "torta" },
-      { label: "Creamtart", value: "creamtart" },
-      { label: "Muffin", value: "muffin" },
-      { label: "Cakepop", value: "cakepop" },
-      { label: "Biscotti", value: "biscotti" },
-      { label: "Bento", value: "bento" },
-    ];
-  
-    const handleChange = (e) => {
-      dispatch({ type: "SET_PRODUCT", payload: e.target.value });
-    };
-  
-    return (
-      <div className="bg-primary-500 rounded-xl p-4">
-        <div className="grid grid-cols-2 gap-y-3 gap-x-6">
-          {productOptions.map((option) => (
-            <label
-              key={option.value}
-              htmlFor={option.value}
-              className="flex items-center justify-between text-black cursor-pointer">
-              <span className="text-base">{option.label}</span>
+  const productOptions = [
+    { label: "Torta", value: "torta", image: "/productorder1.jpg" },
+    { label: "Creamtart", value: "creamtart", image: "/productorder4.jpg" },
+    { label: "Muffin", value: "muffin", image: "/productorder2.png" },
+    { label: "Cakepop", value: "cakepop", image: "/productorder5.jpg" },
+    { label: "Biscotti", value: "biscotti", image: "/productorder3.jpg" },
+    { label: "Bento", value: "bento", image: "/productorder6.png" },
+  ];
+
+  const handleChange = (value) => {
+    dispatch({ type: "SET_PRODUCT", payload: value });
+  };
+
+  return (
+    <div className="bg-primary-500 rounded-xl p-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        {productOptions.map((option) => {
+          const isSelected = state.product === option.value;
+          return (
+            <label key={option.value} className="cursor-pointer justify-items-center">
               <input
-                id={option.value}
                 type="radio"
                 name="product"
                 value={option.value}
-                checked={state.product === option.value}
-                onChange={handleChange}
-                className="w-4 h-4 accent-text-500"
+                checked={isSelected}
+                onChange={() => handleChange(option.value)}
+                className="hidden"
               />
-
+              <div
+                className={`w-[100px] h-[100px] md:w-44 md:h-44 flex flex-col items-center justify-items-center rounded-lg border-2 overflow-hidden transition
+                ${isSelected ? "border-text-500 ring-2 ring-text-500" : "border-gray-300 hover:border-text-500"}`}
+              >
+                <img
+                  src={option.image}
+                  alt={option.label}
+                  className="w-full h-full object-cover"
+                />
+                
+              </div>
+              <span className="text-sm text-black mt-1">{option.label}</span>
             </label>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    );
-  }
-  
+    </div>
+  );
+}
