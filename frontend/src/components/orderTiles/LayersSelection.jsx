@@ -8,7 +8,7 @@ export default function LayersSelection({ state, dispatch }) {
       dispatch({ type: "SET_TIERS", payload: e.target.value });
     };
   
-    const isDisabled = state.product !== "torta" || state.cakeType !== "piani";
+    const isDisabled = state.product !== "torta" || state.cakeVariant !== "piani";
   
     return (
       <div className={`rounded-xl p-4 ${isDisabled ? "opacity-50 cursor-not-allowed" : "bg-primary-500"}`}>

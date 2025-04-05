@@ -15,9 +15,10 @@ export default function CreamColorSelection({ state, dispatch }) {
     ];
   
     const isDisabled =
-      state.product !== "torta" ||
-      (state.cakeType !== "classica" && state.cakeType !== "piani");
-  
+      (state.product === "torta" && state.cakeVariant === "bento") ||
+      !["torta", "cakepop", "muffin"].includes(state.product);
+
+
     const handleChange = (value) => {
       if (!isDisabled) {
         dispatch({ type: "SET_BUTTERCREAM_COLOR", payload: value });

@@ -9,8 +9,8 @@ export default function SpongeSoakSelection({ state, dispatch }) {
   };
 
   const isDisabled =
-    state.product !== "torta" ||
-    (state.cakeType !== "classica" && state.cakeType !== "piani");
+  state.product !== "torta" ||
+  (state.cakeVariant !== "alta" && state.cakeVariant !== "bassa" && state.cakeVariant !== "piani");
 
   return (
     <div

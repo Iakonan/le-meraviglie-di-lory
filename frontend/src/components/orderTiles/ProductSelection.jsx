@@ -1,11 +1,11 @@
 export default function ProductSelection({ state, dispatch }) {
   const productOptions = [
     { label: "Torta", value: "torta", image: "/productorder1.jpg" },
+    { label: "Torta da Forno", value: "torta_forno", image: "/productorder6.jpg" },
     { label: "Creamtart", value: "creamtart", image: "/productorder4.jpg" },
-    { label: "Muffin", value: "muffin", image: "/productorder2.png" },
     { label: "Cakepop", value: "cakepop", image: "/productorder5.jpg" },
+    { label: "Muffin", value: "muffin", image: "/productorder2.png" },
     { label: "Biscotti", value: "biscotti", image: "/productorder3.jpg" },
-    { label: "Bento", value: "bento", image: "/productorder6.png" },
   ];
 
   const handleChange = (value) => {
@@ -36,7 +36,6 @@ export default function ProductSelection({ state, dispatch }) {
                   alt={option.label}
                   className="w-full h-full object-cover"
                 />
-                
               </div>
               <span className="text-sm text-black mt-1">{option.label}</span>
             </label>
