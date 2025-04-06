@@ -6,7 +6,6 @@ export default function CakepopServings({ state, dispatch }) {
   
     return (
       <div className="flex flex-col gap-2 text-black">
-        <label className="text-sm font-medium">Quanti CakePop desideri?</label>
         <input
           type="number"
           min={10}

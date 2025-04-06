@@ -51,7 +51,6 @@ export default function CreamColorSelection({ state, dispatch }) {
                     ${isSelected ? "border-4 border-green-500" : "hover:opacity-80"}
                   `}
                 >
-                  {option.label}
                 </div>
               </label>
             );

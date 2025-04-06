@@ -6,7 +6,7 @@ export default function CakepopIntro() {
           Una pallina di pan di Spagna e Nutella con copertura di cioccolato
           <strong> (1,50€ cad)</strong>.
         </p>
-        <p>🍡 Le porzioni vanno di 10 in 10.</p>
+        <p>Le porzioni vanno di 10 in 10.</p>
         <p>Se per te va bene, andiamo avanti...</p>
       </div>
     );

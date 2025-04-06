@@ -21,7 +21,6 @@ export default function ServingsSelection({ state, dispatch }) {
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-black font-semibold">Quante porzioni desideri?</label>
 
       {cakeVariant === "bento" ? (
         <div className="flex gap-4">

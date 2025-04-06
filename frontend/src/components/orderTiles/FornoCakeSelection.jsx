@@ -5,37 +5,37 @@ const options = [
     label: "Torta Tenerina",
     value: "tenerina",
     price: "28€",
-    image: "/forno/tenerina.jpg",
+    image: "/tortatenerina.jpg",
   },
   {
     label: "Torta di Mele",
     value: "mele",
     price: "28€",
-    image: "/forno/mele.jpg",
+    image: "/tortamele.jpg",
   },
   {
     label: "Torta Margherita",
     value: "margherita",
     price: "25€",
-    image: "/forno/margherita.jpg",
+    image: "/tortamargherita.jpg",
   },
   {
     label: "Crostata di Frutta con Crema Pasticcera",
     value: "crostata_frutta",
     price: "35€",
-    image: "/forno/crostata_frutta.jpg",
+    image: "/crostatcrema.jpeg",
   },
   {
     label: "Crostata con Confettura",
     value: "crostata_confettura",
     price: "28€",
-    image: "/forno/crostata_confettura.jpg",
+    image: "/productorder6.jpg",
   },
   {
     label: "Cheesecake con Confettura",
     value: "cheesecake_confettura",
     price: "35€",
-    image: "/forno/cheesecake.jpg",
+    image: "/cheesecake.jpeg",
   },
 ];
 

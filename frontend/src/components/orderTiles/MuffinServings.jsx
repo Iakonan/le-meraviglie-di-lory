@@ -6,7 +6,6 @@ export default function MuffinServings({ state, dispatch }) {
   
     return (
       <div className="flex flex-col gap-2 text-black">
-        <label className="text-sm font-medium">Quanti Muffin desideri?</label>
         <input
           type="number"
           min={12}

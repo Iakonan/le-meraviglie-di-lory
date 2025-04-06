@@ -3,25 +3,25 @@ export default function CakeVariantSelection({ state, dispatch }) {
       {
         label: "Bassa",
         value: "bassa",
-        image: "/placeholder-bassa.jpg",
+        image: "/productorder1.jpg",
         hint: "",
       },
       {
         label: "Alta",
         value: "alta",
-        image: "/placeholder-alta.jpg",
+        image: "/highcake.jpg",
         hint: "Con base in polistirolo",
       },
       {
         label: "A Piani",
         value: "piani",
-        image: "/placeholder-piani.jpg",
+        image: "/layercake.jpg",
         hint: "Minimo 3kg - Massimo 9kg",
       },
       {
         label: "Bento",
         value: "bento",
-        image: "/placeholder-bento.jpg",
+        image: "/bentocake.jpg",
         hint: "2–5 porzioni",
       },
     ];

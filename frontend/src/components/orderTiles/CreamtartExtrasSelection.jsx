@@ -13,7 +13,6 @@ const extrasOptions = [
   
     return (
       <div className="flex flex-col gap-4 text-black">
-        <label className="text-sm font-medium">Vuoi aggiungere qualcosa?</label>
   
         <div className="flex flex-col gap-2">
           {extrasOptions.map((option) => (
