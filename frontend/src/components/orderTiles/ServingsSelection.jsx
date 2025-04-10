@@ -61,7 +61,7 @@ export default function ServingsSelection({ state, dispatch }) {
 
 
       <span className="text-sm text-black">
-        📌 Ogni porzione equivale a circa 100g di prodotto.
+        Ogni porzione equivale a circa 100g di prodotto.
       </span>
     </div>
   );

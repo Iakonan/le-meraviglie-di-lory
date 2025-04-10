@@ -1,7 +1,5 @@
 import { useReducer, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
 
 import ProductSelection from "../components/orderTiles/ProductSelection";
 import CakeVariantSelection from "../components/orderTiles/CakeVariantSelection";
@@ -22,6 +20,11 @@ import CakepopServings from "../components/orderTiles/CakepopServings";
 import MuffinIntro from "../components/orderTiles/MuffinIntro";
 import MuffinServings from "../components/orderTiles/MuffinServings";
 import MuffinFillingSelection from "../components/orderTiles/MuffinFillingSelection";
+import BiscottiTypeSelection from "../components/orderTiles/BiscottiTypeSelection";
+import BiscottiQuantitySelection from "../components/orderTiles/BiscottiQuantitySelection";
+import BiscottiGiftSelection from "../components/orderTiles/BiscottiGiftSelection";
+import SmashCakeIntro from "../components/orderTiles/SmashCakeIntro";
+import SmashCakeStyleSelection from "../components/orderTiles/SmashCakeStyleSelection";
 
 import { initialState, orderReducer } from "../reducers/orderReducer";
 
@@ -60,6 +63,13 @@ export default function OrderForm() {
       return val % 12 === 0 && val >= 12 && val <= 120;
     }
 
+    if (state.product === "biscotti" && currentComponent === "BiscottiQuantitySelection") {
+      const val = parseInt(state.biscottiQuantita, 10);
+      if (state.biscottiTipo === "stampa") return val % 12 === 0 && val >= 12;
+      if (state.biscottiTipo === "decorati") return val >= 10 && val <= 100;
+      return false;
+    }
+
     return true;
   };
 
@@ -87,7 +97,7 @@ export default function OrderForm() {
             className="p-2 rounded-md border border-gray-300"
           />
           <span className="text-sm text-black">
-            📌 Ti ricordo che servono almeno 3 giorni di preavviso per ogni ordine.
+            Ti ricordo che servono almeno 3 giorni di preavviso per ogni ordine.
           </span>
         </div>
       ),
@@ -140,19 +150,47 @@ export default function OrderForm() {
       message: "Qual è il tema dell'evento?",
       component: <ThemeSelection state={state} dispatch={dispatch} />,
     },
+    state.product === "biscotti" && {
+      message: "Scegli il tipo di biscotti:",
+      component: <BiscottiTypeSelection state={state} dispatch={dispatch} />,
+    },
+    state.product === "biscotti" && state.biscottiTipo && {
+      message: "Quanti biscotti desideri?",
+      component: <BiscottiQuantitySelection state={state} dispatch={dispatch} />,
+    },
+    state.product === "biscotti" && state.biscottiTipo && state.biscottiQuantita && {
+      message: "Come vuoi che siano confezionati?",
+      component: <BiscottiGiftSelection state={state} dispatch={dispatch} />,
+    },
+    state.product === "biscotti" && state.biscottiTipo && state.biscottiRegalo && {
+      message: "Qual è il tema dell'evento?",
+      component: <ThemeSelection state={state} dispatch={dispatch} />,
+    },
     ...(state.product === "torta"
       ? [
           {
             message: "Che tipo di torta desideri?",
             component: <CakeVariantSelection state={state} dispatch={dispatch} />,
           },
-          state.cakeVariant && {
+          state.cakeVariant && !["smash", "bento"].includes(state.cakeVariant) && {
             message: "Quante porzioni ti servono?",
             component: <ServingsSelection state={state} dispatch={dispatch} />,
           },
           state.cakeVariant === "bento" && {
             message: "",
             component: <BentoInfo />,
+          },
+          state.cakeVariant === "smash" && {
+            message: "",
+            component: <SmashCakeIntro />,
+          },
+          state.cakeVariant === "smash" && {
+            message: "Scegli lo stile della tua Smash Cake",
+            component: <SmashCakeStyleSelection state={state} dispatch={dispatch} />,
+          },
+          state.cakeVariant === "smash" && {
+            message: "Scegli il colore della crema al burro:",
+            component: <CreamColorSelection state={state} dispatch={dispatch} />,
           },
           state.cakeVariant === "piani" && {
             message: "Quanti piani vuoi?",
@@ -178,7 +216,7 @@ export default function OrderForm() {
             message: "Scegli il colore della crema al burro:",
             component: <CreamColorSelection state={state} dispatch={dispatch} />,
           },
-          ["bassa", "alta", "piani", "bento"].includes(state.cakeVariant) && {
+          ["bassa", "alta", "piani", "bento", "smash"].includes(state.cakeVariant) && {
             message: "Qual è il tema dell'evento?",
             component: <ThemeSelection state={state} dispatch={dispatch} />,
           },
@@ -234,9 +272,6 @@ export default function OrderForm() {
           </div>
         </main>
       </div>
-
-      <Newsletter />
-      <Footer />
     </div>
   );
 }

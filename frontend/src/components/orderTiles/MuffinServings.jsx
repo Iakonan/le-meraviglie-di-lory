@@ -22,11 +22,11 @@ export default function MuffinServings({ state, dispatch }) {
           placeholder="Es: 24, 36..."
         />
         <span className="text-sm text-gray-700">
-          📌 I muffin si ordinano in multipli di 12
+          I muffin si ordinano in multipli di 12
         </span>
         {!isValid(state.servings) && state.servings && (
           <span className="text-sm text-red-600">
-            ⚠️ Inserisci un numero multiplo di 12 tra 12 e 120
+            Inserisci un numero multiplo di 12 tra 12 e 120
           </span>
         )}
       </div>

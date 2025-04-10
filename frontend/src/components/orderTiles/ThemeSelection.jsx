@@ -19,7 +19,7 @@ export default function ThemeSelection({ state, dispatch }) {
           className="w-full p-2 rounded-md shadow-inner border border-gray-300 text-black placeholder:text-gray-400"
         />
         <p className="text-sm mt-1 text-gray-700">
-          ⚠️ Alcune decorazioni potrebbero essere incluse in base al tema scelto.
+          Alcune decorazioni potrebbero essere incluse in base al tema scelto.
         </p>
       </div>
     );

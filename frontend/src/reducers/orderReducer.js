@@ -16,7 +16,12 @@ export const initialState = {
   creamtartShape: "",
   creamtartExtras: [],
   muffinFilling: "",
-
+  // Biscotti
+  biscottiTipo: "",
+  biscottiQuantita: "",
+  biscottiRegalo: "",
+  // Smash Cake
+  smashOption: "",
 };
 
 export const orderReducer = (state, action) => {
@@ -39,12 +44,20 @@ export const orderReducer = (state, action) => {
         extras: [],
         servings: "",
         theme: "",
+        fornoCake: "",
+        confettura: "",
         buttercreamColor:
           action.payload === "torta" || action.payload === "torta_forno"
             ? ""
-            : state.buttercreamColor, // ← manteniamo il colore per cakepop e creamtart
-        };
-      
+            : state.buttercreamColor,
+        creamtartShape: "",
+        creamtartExtras: [],
+        muffinFilling: "",
+        biscottiTipo: "",
+        biscottiQuantita: "",
+        biscottiRegalo: "",
+        smashOption: "",
+      };
 
     case "SET_CAKE_VARIANT":
       return {
@@ -64,6 +77,7 @@ export const orderReducer = (state, action) => {
             ? state.buttercreamColor
             : "",
         servings: "",
+        smashOption: action.payload === "smash" ? state.smashOption : "",
       };
 
     case "SET_TIERS":
@@ -103,7 +117,7 @@ export const orderReducer = (state, action) => {
         ...state,
         buttercreamColor: action.payload,
       };
-    
+
     case "TOGGLE_CREAMTART_EXTRA":
       return {
         ...state,
@@ -111,7 +125,32 @@ export const orderReducer = (state, action) => {
           ? state.creamtartExtras.filter((item) => item !== action.value)
           : [...state.creamtartExtras, action.value],
       };
-      
+
+    case "SET_BISCOTTI_TIPO":
+      return {
+        ...state,
+        biscottiTipo: action.payload,
+        biscottiQuantita: "",
+        biscottiRegalo: "",
+      };
+
+    case "SET_BISCOTTI_QUANTITA":
+      return {
+        ...state,
+        biscottiQuantita: action.payload,
+      };
+
+    case "SET_BISCOTTI_REGALO":
+      return {
+        ...state,
+        biscottiRegalo: action.payload,
+      };
+
+    case "SET_SMASH_OPTION":
+      return {
+        ...state,
+        smashOption: action.payload,
+      };
 
     case "RESET_ORDER":
       return initialState;
